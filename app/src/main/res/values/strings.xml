@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Preaching Assistant</string>
+    <string name="register_devotee">Register Devotee</string>
+    <string name="initiated_name">Initiated Name</string>
+    <string name="legal_name">Legal Name</string>
+    <string name="register">Register</string>
+    <string name="create_user_account">Create user account</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create">Create</string>
+    <string name="devotee_details">Devotee Details</string>
 </resources>
