@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/SE_Life_Green">
+
+        <TextView
+            android:id="@+id/dialogueTitleId"
+            style="@style/dialogueTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nfc"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F7F7F7"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <ImageView
+            android:id="@+id/infoImageId"
+            android:layout_width="@dimen/dialog_notification_image_WXH"
+            android:layout_height="@dimen/dialog_notification_image_WXH"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/pattern1"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F7F7F7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/primaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:text="@string/place_your_mobile_device_close_to_the_pilot_light"
+                android:textColor="@color/Anthracite_grey"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/secondaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:paddingTop="8dp"
+                android:text="@string/place_your_mobile_device_close_to_the_pilot_light"
+                android:textColor="@color/Anthracite_grey"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#F7F7F7">
+
+        <TextView
+            android:id="@+id/btn"
+            style="@style/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/close"/>
+    </RelativeLayout>
+
+</LinearLayout>
