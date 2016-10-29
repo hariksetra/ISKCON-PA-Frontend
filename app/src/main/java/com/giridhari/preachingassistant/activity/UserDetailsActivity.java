@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.giridhari.preachingassistant.R;
+import com.giridhari.preachingassistant.model.DevoteeListResponse;
 import com.giridhari.preachingassistant.model.UserAccountDetailResponse;
 
 import retrofit2.Call;
@@ -19,22 +20,17 @@ public class UserDetailsActivity extends APIActivity {
 
         UserAccountDetailResponse userAccountDetailResponse = new UserAccountDetailResponse();
 
-        preachingAssistantService.getUserAccounts("Basic YWRtaW46YWRtaW4=", "admin").enqueue(new Callback<UserAccountDetailResponse>() {
+        preachingAssistantService.getDevoteeList("Basic YWRtaW46YWRtaW4=").enqueue(new Callback<DevoteeListResponse>() {
             @Override
-            public void onResponse(Call<UserAccountDetailResponse> call, Response<UserAccountDetailResponse> response) {
-                setView(response.body());
+            public void onResponse(Call<DevoteeListResponse> call, Response<DevoteeListResponse> response) {
+                Log.d("Response", response.toString());
             }
 
             @Override
-            public void onFailure(Call<UserAccountDetailResponse> call, Throwable t) {
+            public void onFailure(Call<DevoteeListResponse> call, Throwable t) {
                 Log.e("Error", t.getMessage());
             }
         });
-        setView(userAccountDetailResponse);
-    }
-
-    private void setView(UserAccountDetailResponse userAccountDetailResponse) {
-        Log.d("UserAccountRespomse", userAccountDetailResponse.toString());
     }
 }
 ;
