@@ -17,4 +17,25 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="btnClose" parent="TextAppearance.AppCompat.Title">
+        <item name="android:layout_marginTop">@dimen/dialogue_btnCLOSE_marginTop</item>
+        <item name="android:textSize">@dimen/dialogue_btnCLOSE_textSize</item>
+        <item name="android:paddingRight">@dimen/dialogue_btnCLOSE_paddingRight</item>
+        <item name="android:paddingBottom">@dimen/dialogue_btnCLOSE_paddingBottom</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:textColor">@color/Anthracite_grey</item>
+    </style>
+
+    <style name="dialogueTitleText" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:paddingLeft">@dimen/dialogueTitlePrimaryTextpaddingLeft</item>
+        <item name="android:paddingRight">@dimen/dialogueTitlePrimaryTextpaddingRight</item>
+        <item name="android:textSize">@dimen/dialogueTitlePrimaryTextSize</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_marginTop">@dimen/dialogue_btnCLOSE_marginTop</item>
+        <item name="android:layout_marginBottom">@dimen/dialogue_btnCLOSE_marginTop
+        </item>
+    </style>
+
 </resources>

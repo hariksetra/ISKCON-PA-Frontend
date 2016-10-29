@@ -14,7 +14,7 @@
             style="@style/dialogueTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/nfc"/>
+            android:text="@string/preaching_assistant"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
-                android:text="@string/place_your_mobile_device_close_to_the_pilot_light"
+                android:text="@string/hare_krishna"
                 android:textColor="@color/Anthracite_grey"
                 android:textSize="16sp"/>
 
@@ -55,7 +55,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
                 android:paddingTop="8dp"
-                android:text="@string/place_your_mobile_device_close_to_the_pilot_light"
+                android:text="@string/hare_krishna"
                 android:textColor="@color/Anthracite_grey"
                 android:textSize="16sp"/>
 

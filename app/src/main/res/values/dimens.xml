@@ -3,4 +3,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="dialog_notification_image_WXH">40dp</dimen>
+    <dimen name="dialogue_btnCLOSE_marginTop">12dp</dimen>
+    <dimen name="dialogue_btnCLOSE_textSize">20sp</dimen>
+    <dimen name="dialogue_btnCLOSE_paddingRight">16dp</dimen>
+    <dimen name="dialogue_btnCLOSE_paddingBottom">16dp</dimen>
+    <dimen name="dialogueTitlePrimaryTextpaddingLeft">16dp</dimen>
+    <dimen name="dialogueTitlePrimaryTextpaddingRight">16dp</dimen>
+    <dimen name="dialogueTitlePrimaryTextSize">20sp</dimen>
+    <dimen name="dialogueTitlePrimaryTextlayout_marginTop">20dp</dimen>
 </resources>

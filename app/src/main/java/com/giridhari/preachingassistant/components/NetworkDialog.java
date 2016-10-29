@@ -18,7 +18,7 @@ public class NetworkDialog extends Dialog
     private final String mButton;
     private int mImageDrwable = 0;
 
-    public NetworkDialog(Context context, schneiderDialogListener myclick, String primaryText, String secondaryText, String button, int image)
+    public NetworkDialog(Context context, networkDialogListener myclick, String primaryText, String secondaryText, String button, int image)
     {
         super(context);
         this.myListener = myclick;
@@ -40,7 +40,7 @@ public class NetworkDialog extends Dialog
     public void onCreate(Bundle savedInstanceState)
     {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_layout);
+        setContentView(R.layout.network_layout);
 
         TextView primaryText = (TextView) findViewById(R.id.primaryText);
         primaryText.setText(mPrimaryText);
@@ -69,10 +69,6 @@ public class NetworkDialog extends Dialog
             public void onClick(View arg0)
             {
                 myListener.onButtonClick();
-                // SOUMEN: I am giving the click to the
-                // interface function which we need
-                // to implements where we call this
-                // class
 
             }
         });

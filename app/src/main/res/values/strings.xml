@@ -11,4 +11,9 @@
     <string name="create">Create</string>
     <string name="devotee_details">Devotee Details</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="preaching_assistant">Preaching Assistant</string>
+    <string name="hare_krishna">Hare Krishna</string>
+    <string name="close">CLOSE</string>
+    <string name="no_network">Network Connectivity Issue</string>
+    <string name="check_network">Please check your network connection !</string>
 </resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preaching_assistant">Preaching Assistant</string>
+    <string name="hare_krishna">Hare Krishna</string>
+    <string name="close">CLOSE</string>
+    <string name="no_network">Network Connectivity Issue</string>
+    <string name="check_network">Please check your network connection !</string>
+</resources>

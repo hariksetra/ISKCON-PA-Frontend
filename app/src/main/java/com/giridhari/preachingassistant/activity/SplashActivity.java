@@ -1,19 +1,14 @@
 package com.giridhari.preachingassistant.activity;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.giridhari.preachingassistant.R;
+import com.giridhari.preachingassistant.components.NetworkDialog;
+import com.giridhari.preachingassistant.utility.ActivityManager;
+import com.giridhari.preachingassistant.utility.HelperUtility;
 
 public class SplashActivity extends Activity
 {
@@ -24,8 +19,10 @@ public class SplashActivity extends Activity
     private final int m_splashTime = 1500;
     private Activity act = null;
     private String TAG = "PreachingAssistant";
+    private NetworkDialog.networkDialogListener networkDialogListener = null;
     private int mType;
     private SplashTimer m_splashtimer;
+    NetworkDialog networkDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,7 +36,7 @@ public class SplashActivity extends Activity
         this.act = this;
 
         // create new onclicklistener interface //
-        schneiderDialogListener = new SchneiderDialog.schneiderDialogListener()
+        networkDialogListener = new NetworkDialog.networkDialogListener()
         {
             @Override
             public void onButtonClick()
@@ -50,60 +47,37 @@ public class SplashActivity extends Activity
                     finish();
                     moveTaskToBack(true);
                 }
-                else if (mType == 2)
-                {
-                    if (!s_splashFinish)
-                    {
-                        pauseTimer();
-                    }
-                    startActivityForResult(new Intent(Settings.ACTION_NFC_SETTINGS), 0);
-                }
                 else
                 {
-
                     m_splashtimer.start();
                     //Start the timer for the new class
-
                 }
             }
         };
 
 
-
-        if (!NFCUtility.isNFCAvailable(this))
+        if (!HelperUtility.hasNetworkConnection(SplashActivity.this))
         {
             mType = 1;
-            String primaryString = Macros.PRIMARY_STRING_NO_NFC;
-            String secondaryString = Macros.SECONDARY_STRING_NO_NFC;
-            String button = Macros.CLOSE;
-            d = new SchneiderDialog(this, schneiderDialogListener, primaryString, secondaryString, button, R.drawable.pattern3);
-            d.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            d.setCanceledOnTouchOutside(false);
-            d.show();
+            String primaryString = getString(R.string.no_network);
+            String secondaryString = getString(R.string.check_network);
+            String button = getString(R.string.close);
+            networkDialog = new NetworkDialog(this, networkDialogListener, primaryString, secondaryString, button, R.drawable.pattern1);
+            networkDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            networkDialog.setCanceledOnTouchOutside(false);
+            networkDialog.show();
 
-        }
-        else if (NFCUtility.isNFCAvailable(this) && !NFCUtility.isNFCTurnedOn(this))
-        {
-            mType = 2;
-            String primaryString = Macros.PRIMARY_STRING_NFC_OFF;
-            String secondaryString = Macros.SECONDARY_STRING_NFC_OFF;
-            String button = Macros.SETTINGS;
-            d = new SchneiderDialog(this, schneiderDialogListener, primaryString, secondaryString, button, R.drawable.pattern1);
-            d.setCancelable(false);
-            d.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            d.setCanceledOnTouchOutside(false);
-            d.show();
         }
         else
         {
             mType = 0;
         }
 
-        //setting status for bootm sheet display. bad // FIXME: 10/2/2016
-        SharedPreferences sharedPref = getSharedPreferences("Zelio_Shared_Prefs#", MODE_PRIVATE);
+     /*   //setting status for bootm sheet display. bad // FIXME: 10/2/2016
+        SharedPreferences sharedPref = getSharedPreferences("Preaching_Assistant_Prefs#", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(Constants.KEY_BOTTOM_SHEET_STATUS, false);
-        editor.apply();
+        editor.apply();*/
 
     }
 
@@ -111,14 +85,12 @@ public class SplashActivity extends Activity
     protected void onStart()
     {
         super.onStart();
-        //Log.d("----->", "onStart");
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        //Log.d("----->", "onResume");
         resumeTimer();
         s_splashFinish = false;
         return;
@@ -148,18 +120,6 @@ public class SplashActivity extends Activity
         return;
     }
 
-    //First time db creation
-    private void firstTimedbFeed()
-    {
-
-        SchDBHandler dbHandler = new SchDBHandler(this, null, null, 1);
-        UserPrefModel userPrefModel =
-                new UserPrefModel("#99999@", 0, 1, "undefine", "XX@XXX.com");
-        dbHandler.addProduct(userPrefModel);
-        dbHandler.updateLastEpoch("0000");
-
-    }
-
     private class SplashTimer extends CountDownTimer
     {
 
@@ -173,39 +133,10 @@ public class SplashActivity extends Activity
         {
             s_splashFinish = true;
 
-            if (NFCUtility.isNFCAvailable(act) && NFCUtility.isNFCTurnedOn(act))
+            if (HelperUtility.hasNetworkConnection(act))
             {
-
-
-                if (HelperUtility.isFirstTimeLaunch(act))
-                {
-                    if (HelperUtility.doesDatabaseExist(getApplicationContext(), "nfcZelioDB.db"))
-                    {
-                        //Log.d("Comments", "db exist");
-
-                    }
-                    else
-                    {
-                        //Log.d("Comments", "db don't exist");
-                        firstTimedbFeed();
-                        finish();
-                        ActivityManager.launchLogin(act);
-                    }
-                }
-                else
-                {
-
-                    if (HelperUtility.isRememberMeActive(getApplicationContext(), 1))
-                    {
-                        finish();
-                        ActivityManager.AutoDetectionView(act);
-                    }
-                    else
-                    {
-                        finish();
-                        ActivityManager.launchLogin(act);
-                    }
-                }
+                finish();
+                ActivityManager.launchLogin(act);
 
             }
 
