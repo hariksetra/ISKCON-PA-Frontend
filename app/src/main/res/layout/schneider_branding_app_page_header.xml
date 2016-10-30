@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="40dp">
+
+    <ImageView
+        android:id="@+id/logoId"
+        android:layout_width="@dimen/signup_header_logo_WXH"
+        android:layout_height="@dimen/signup_header_logo_WXH"
+        android:src="@drawable/app_icon"/>
+
+    <TextView
+        android:id="@+id/login_app_name_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/logoId"
+        android:paddingLeft="12sp"
+        android:text="@string/preaching_assistant"
+        android:textColor="@color/AppTitleBarTitleTextColor"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/logoId"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/login_app_name_id"
+        android:text="@string/_1_0_0"
+        android:textColor="@color/AppTitleBarTitleTextColor"
+        android:textSize="12sp"/>
+
+</RelativeLayout>
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/schneiderLogoBrandingId"-->
+    <!--&gt;-->
+
+
+    <!--</RelativeLayout>-->

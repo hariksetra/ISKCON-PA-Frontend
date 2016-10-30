@@ -12,4 +12,5 @@
     <dimen name="dialogueTitlePrimaryTextpaddingRight">16dp</dimen>
     <dimen name="dialogueTitlePrimaryTextSize">20sp</dimen>
     <dimen name="dialogueTitlePrimaryTextlayout_marginTop">20dp</dimen>
+    <dimen name="signup_header_logo_WXH">55dp</dimen>
 </resources>

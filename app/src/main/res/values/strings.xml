@@ -16,4 +16,14 @@
     <string name="close">CLOSE</string>
     <string name="no_network">Network Connectivity Issue</string>
     <string name="check_network">Please check your network connection !</string>
+    <string name="invalid_username">Invalid Username</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="_1_0_0">1.0.0</string>
+    <string name="remember_me">Remember me</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="check_internet">Please check your internet connection</string>
+    <string name="title_activity_capture_contact">CaptureContact</string>
 </resources>
