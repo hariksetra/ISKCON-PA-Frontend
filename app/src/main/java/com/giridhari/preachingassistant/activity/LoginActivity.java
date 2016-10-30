@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         preachingAssistantService = retrofit.create(PreachingAssistantService.class);
         UserAccountDetailResponse userAccountDetailResponse = new UserAccountDetailResponse();
 
-        preachingAssistantService.getUserAccounts("Basic " + authToken, username).enqueue(new Callback<UserAccountDetailResponse>()
+        preachingAssistantService.getUserAccount("Basic " + authToken, username).enqueue(new Callback<UserAccountDetailResponse>()
         {
             @Override
             public void onResponse(Call<UserAccountDetailResponse> call, Response<UserAccountDetailResponse> response)
