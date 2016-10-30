@@ -60,7 +60,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         assert findViewById(R.id.passwordEye) != null;
         findViewById(R.id.passwordEye).setOnClickListener(this);
         assert findViewById(R.id.loginButton) != null;
-        findViewById(R.id.loginButton).setOnClickListener(this);
+        loginButton = (Button) findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(this);
+        loginButton.setAlpha(1.0f);
 
         assert findViewById(R.id.rememberme) != null;
         ((CheckBox) findViewById(R.id.rememberme)).setOnCheckedChangeListener(this);
@@ -86,7 +88,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         passwordField = (EditText) findViewById(R.id.password);
 
 
-
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         //Setting the blur bg
@@ -95,14 +96,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         assert findViewById(R.id.landingScreenBg_id) != null;
         findViewById(R.id.landingScreenBg_id).setBackground(new BitmapDrawable(getResources(), blurredBitmap));
 
-
-        //ActionBar bar = getActionBar();
-        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3DCD58")));
-
     }
 
 
-    private void doLogin(String authToken, String username)
+    private void doLogin(final String authToken, String username)
     {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://52.77.165.53/")
@@ -112,6 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         preachingAssistantService = retrofit.create(PreachingAssistantService.class);
         UserAccountDetailResponse userAccountDetailResponse = new UserAccountDetailResponse();
 
+        Log.d("Token = ","Basic " + authToken );
         preachingAssistantService.getUserAccount("Basic " + authToken, username).enqueue(new Callback<UserAccountDetailResponse>()
         {
             @Override
@@ -122,7 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                     Log.d("LoginActivity", "Login Response = " + response);
                     progressBar.setVisibility(View.INVISIBLE);
-                    ActivityManager.launchCaptureContact(LoginActivity.this);
+                    ActivityManager.launchCaptureContact(LoginActivity.this,authToken);
                 }
                 else
                 {

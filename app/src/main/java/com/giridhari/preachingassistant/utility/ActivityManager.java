@@ -23,9 +23,10 @@ public class ActivityManager
                 R.anim.slide_end_left);
     }
 
-    public static void launchCaptureContact(Activity activity)
+    public static void launchCaptureContact(Activity activity, String authToken)
     {
         Intent intent = new Intent(activity, CaptureContact.class);
+        intent.putExtra("authToken", authToken);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
         //animation for launching screen

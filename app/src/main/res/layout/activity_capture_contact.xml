@@ -22,7 +22,9 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_capture_contact"/>
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_capture_contact"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -32,6 +34,15 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_menu_add"/>
 
+    <ProgressBar
+        android:id="@+id/progressBarCaptureContact"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:visibility="invisible"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="center_vertical|center_horizontal"/>
 
 
 </android.support.design.widget.CoordinatorLayout>
