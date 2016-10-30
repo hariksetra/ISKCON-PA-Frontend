@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class DevoteeCreateRequest {
 
+    private String legalName;
     private String initiatedName;
     private Date dob;
     private String gender;
@@ -26,6 +27,14 @@ public class DevoteeCreateRequest {
     private String booksRead; //TODO: create a separate table to maintain the list of books read
     private Integer monthlyContribution;
     private String sikshaLevel; //TODO: create an enum for siksha level
+
+    public String getLegalName() {
+        return legalName;
+    }
+
+    public void setLegalName(String legalName) {
+        this.legalName = legalName;
+    }
 
     public String getInitiatedName() {
         return initiatedName;

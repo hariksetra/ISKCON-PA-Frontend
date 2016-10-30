@@ -24,6 +24,6 @@ public interface PreachingAssistantService {
     public Call<DevoteeListResponse> getDevoteeList(@Header(value = "Authorization") String authKey);
 
     @POST("/devotees")
-    public Call<DevoteeDetailsResponse> createDevotee(@Header(value = "Authorization") String authKey, @Body DevoteeCreateRequest devoteeCreateRequest);
+    public Call<DevoteeDetailsResponse> createDevotee(@Header(value = "Authorization") String authKey, @Header("Content-Type") String contentType, @Header("Accept") String accept, @Body DevoteeCreateRequest devoteeCreateRequest);
 
 }
