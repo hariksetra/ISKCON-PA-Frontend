@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.giridhari.preachingassistant.R;
-import com.giridhari.preachingassistant.activity.CaptureContact;
+import com.giridhari.preachingassistant.activity.CaptureContactActivity;
 import com.giridhari.preachingassistant.activity.LoginActivity;
 
 /**
@@ -25,7 +25,7 @@ public class ActivityManager
 
     public static void launchCaptureContact(Activity activity, String authToken)
     {
-        Intent intent = new Intent(activity, CaptureContact.class);
+        Intent intent = new Intent(activity, CaptureContactActivity.class);
         intent.putExtra("authToken", authToken);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
