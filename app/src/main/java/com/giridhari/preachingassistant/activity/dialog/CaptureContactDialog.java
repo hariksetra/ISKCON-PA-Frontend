@@ -120,7 +120,7 @@ public class CaptureContactDialog extends Dialog
         });
 
 
-        setCancelable(false);
+        setCancelable(true);
         setCanceledOnTouchOutside(false);
         Window window = getWindow();
         window.setGravity(Gravity.CENTER);

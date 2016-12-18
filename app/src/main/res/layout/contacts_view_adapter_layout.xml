@@ -32,7 +32,7 @@
                 android:maxLines="1"
                 android:text="Contact Name"
                 android:textColor="@color/Anthracite_grey"
-                android:textSize="16sp"/>
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/mobileNumber"
@@ -43,9 +43,9 @@
                 android:ellipsize="end"
                 android:maxLength="13"
                 android:maxLines="1"
-                android:text="+91-7348807791"
+                android:text="+917348807791"
                 android:textColor="@color/Anthracite_grey"
-                android:textSize="16sp"/>
+                android:textSize="15sp"/>
 
         </LinearLayout>
 
@@ -59,9 +59,9 @@
             android:textSize="14sp"/>
 
         <View
-            android:layout_marginTop="6dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="6dp"
             android:background="@color/Super_Light_Grey"/>
 
     </LinearLayout>
