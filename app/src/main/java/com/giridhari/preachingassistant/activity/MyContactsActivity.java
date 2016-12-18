@@ -95,7 +95,7 @@ public class MyContactsActivity extends APIActivity
 
     private void showCaptureContactDialog()
     {
-        CaptureContactDialog captureContactDialog = new CaptureContactDialog(MyContactsActivity.this);
+        CaptureContactDialog captureContactDialog = new CaptureContactDialog(MyContactsActivity.this, preachingAssistantService, getStringFromSharedPreference(LoginActivity.AUTH_TOKEN));
         captureContactDialog.show();
     }
 
