@@ -35,4 +35,5 @@
     <string name="dashboard">DASHBOARD</string>
     <string name="contacts">CONTACTS</string>
     <string name="attendance">ATTENDANCE</string>
+    <string name="logout">Logout</string>
 </resources>

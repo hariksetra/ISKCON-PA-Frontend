@@ -63,4 +63,10 @@ public class BaseActivity extends AppCompatActivity {
         return sharedPreferences.getInt(key, -1);
     }
 
+    /**
+     * Clears everything from the SharedPreference
+     */
+    public void clearCredentials() {
+        sharedPreferences.edit().clear().apply();
+    }
 }

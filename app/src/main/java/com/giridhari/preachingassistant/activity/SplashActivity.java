@@ -1,10 +1,8 @@
 package com.giridhari.preachingassistant.activity;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.SyncStateContract;
 import android.view.WindowManager;
 
 import com.giridhari.preachingassistant.R;
@@ -133,9 +131,7 @@ public class SplashActivity extends Activity
             {
                 finish();
                 ActivityManager.launchLogin(act);
-
             }
-
             return;
 
         }
