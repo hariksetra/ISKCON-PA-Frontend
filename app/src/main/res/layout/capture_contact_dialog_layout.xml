@@ -12,20 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/SE_Life_Green">
+
         <TextView
             android:id="@+id/dialogueTitleId"
             style="@style/dialogueTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:layout_alignParentTop="true"
             android:text="CAPTURE CONTACT"
             android:textSize="16sp"/>
 
     </RelativeLayout>
-
-
 
 
     <TextView
@@ -70,6 +69,7 @@
         android:layout_alignStart="@+id/userName"
         android:ems="10"
         android:inputType="phone"
+        android:maxLength="10"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
     <TextView
@@ -82,15 +82,15 @@
         android:text="Gender"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
-    <EditText
+
+    <Spinner
         android:id="@+id/genderValue"
-        android:layout_width="wrap_content"
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/genderLabel"
         android:layout_alignBottom="@+id/genderLabel"
         android:layout_alignStart="@+id/mobileNumber"
-        android:ems="10"
-        android:inputType="textCapCharacters"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
     <TextView
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/genderLabel"
         android:layout_below="@+id/genderValue"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="24dp"
         android:text="Area"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
@@ -132,6 +132,7 @@
         android:layout_alignBottom="@+id/languageLabel"
         android:layout_alignStart="@+id/area"
         android:ems="10"
+        android:hint="Enter preferred language"
         android:inputType="textCapWords"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
@@ -163,8 +164,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/feedbackEditTextBox"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
         android:layout_marginBottom="18dp"
+        android:layout_marginTop="18dp"
+        android:enabled="false"
         android:text="Save"/>
 
     <TextView
@@ -179,11 +181,11 @@
         android:textStyle="normal"/>
 
     <ProgressBar
+        android:id="@+id/progressBarInDialog"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="invisible"
-        android:id="@+id/progressBarInDialog" />
+        android:visibility="invisible"/>
 
 </RelativeLayout>

@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.giridhari.preachingassistant.R;
+
 import com.giridhari.preachingassistant.components.NetworkDialog;
 import com.giridhari.preachingassistant.model.UserAccountDetailResponse;
 import com.giridhari.preachingassistant.utility.ActivityManager;
@@ -39,6 +39,7 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
     ProgressBar progressBar;
     String username;
     private TextView forgetBtn;
+    private TextView privacyPolicy;
     private NetworkDialog.networkDialogListener networkDialogListener;
     private Button loginButton;
     private TextView usernameEntered;
@@ -50,7 +51,8 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        if(getStringFromSharedPreferences(AUTH_TOKEN) != null) {
+        if (getStringFromSharedPreferences(AUTH_TOKEN) != null)
+        {
             ActivityManager.launchMyContactsActivity(LoginActivity.this);
         }
         setContentView(R.layout.activity_login);
@@ -69,7 +71,24 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
         ((CheckBox) findViewById(R.id.rememberme)).setOnCheckedChangeListener(this);
 
         forgetBtn = (TextView) findViewById(R.id.forgetpassword);
-        forgetBtn.setOnClickListener(this);
+        forgetBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Toast.makeText(LoginActivity.this, "Coming soon!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        privacyPolicy = (TextView) findViewById(R.id.privacy_policy);
+        privacyPolicy.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Toast.makeText(LoginActivity.this, "A product of ISKCON AECS Layout, reach us at 8880076000", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
