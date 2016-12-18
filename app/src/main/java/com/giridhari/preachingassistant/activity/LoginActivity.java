@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.giridhari.preachingassistant.R;
-import com.giridhari.preachingassistant.client.PreachingAssistantService;
 import com.giridhari.preachingassistant.components.NetworkDialog;
 import com.giridhari.preachingassistant.model.UserAccountDetailResponse;
 import com.giridhari.preachingassistant.utility.ActivityManager;
@@ -30,8 +28,6 @@ import java.io.UnsupportedEncodingException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends APIActivity implements View.OnClickListener,
         CheckBox.OnCheckedChangeListener
