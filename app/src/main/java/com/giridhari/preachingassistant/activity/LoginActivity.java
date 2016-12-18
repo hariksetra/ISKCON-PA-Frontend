@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         preachingAssistantService = retrofit.create(PreachingAssistantService.class);
         UserAccountDetailResponse userAccountDetailResponse = new UserAccountDetailResponse();
 
-        Log.d("Token = ","Basic " + authToken );
+        Log.d("Token = ", "Basic " + authToken);
         preachingAssistantService.getUserAccount("Basic " + authToken, username).enqueue(new Callback<UserAccountDetailResponse>()
         {
             @Override
@@ -120,7 +120,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                     Log.d("LoginActivity", "Login Response = " + response);
                     progressBar.setVisibility(View.INVISIBLE);
-                    ActivityManager.launchCaptureContact(LoginActivity.this,authToken);
+                    //ActivityManager.launchCaptureContact(LoginActivity.this,authToken);
+                    ActivityManager.launchMyContactsActivity(LoginActivity.this, authToken);
                 }
                 else
                 {

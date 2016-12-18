@@ -28,6 +28,13 @@
             android:label="@string/title_activity_capture_contact"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity android:name=".activity.MyContactsActivity">
+        </activity>
     </application>
 
 </manifest>

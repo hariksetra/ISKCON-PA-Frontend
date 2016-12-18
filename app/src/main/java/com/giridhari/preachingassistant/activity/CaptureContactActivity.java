@@ -65,7 +65,6 @@ public class CaptureContactActivity extends AppCompatActivity
 
                 preachingAssistantService.getDevoteeList("Basic " + authToken).enqueue(new Callback<DevoteeListResponse>()
                 {
-
                     @Override
                     public void onResponse(Call<DevoteeListResponse> call, Response<DevoteeListResponse> response)
                     {
