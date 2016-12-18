@@ -61,7 +61,7 @@
         <View
             android:layout_marginTop="6dp"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0dp"
             android:background="@color/Super_Light_Grey"/>
 
     </LinearLayout>
