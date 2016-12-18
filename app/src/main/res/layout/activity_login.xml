@@ -122,6 +122,7 @@
                 android:checked="false"
                 android:text="@string/remember_me"
                 android:textColor="@color/AppWhite"
+                android:visibility="gone"
                 android:textSize="16sp"
                 android:theme="@style/login_checkbox"/>
 
@@ -173,7 +174,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="20dp"
                 android:autoLink="web"
-                android:text="@string/privacy_policy"
+                android:text="About"
                 android:textColor="@color/AppWhite"
                 android:textSize="14sp"/>
 

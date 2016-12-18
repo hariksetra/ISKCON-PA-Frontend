@@ -2,16 +2,20 @@ package com.giridhari.preachingassistant.activity.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +27,6 @@ import com.giridhari.preachingassistant.model.DevoteeDetailsResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by SESA249880 on 12/18/2016.
@@ -41,6 +43,12 @@ public class CaptureContactDialog extends Dialog
     String capturedBy;
     ProgressBar progressBar;
     PreachingAssistantService preachingAssistantService;
+    boolean genderSelected = false;
+    boolean nameEntered = false;
+    boolean mobileEntered = false;
+    boolean areaEntered = false;
+    boolean languageEntered = true;
+    String genderChosen = "";
 
 
     public CaptureContactDialog(Context context, PreachingAssistantService preachingAssistantService, String authToken, String devotee)
@@ -62,7 +70,37 @@ public class CaptureContactDialog extends Dialog
 
         name = (EditText) findViewById(R.id.userName);
         mobile = (EditText) findViewById(R.id.mobileNumber);
-        gender = (EditText) findViewById(R.id.genderValue);
+
+
+        Spinner genderSpinner = (Spinner) findViewById(R.id.genderValue);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext,
+                R.array.gender_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        genderSpinner.setAdapter(adapter);
+        genderSpinner.setSelection(0);
+
+        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                genderSelected = true;
+                genderChosen = adapterView.getItemAtPosition(i).toString();
+                enableDisableSaveButton();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
+                genderSelected = false;
+                enableDisableSaveButton();
+            }
+        });
+
+
         area = (EditText) findViewById(R.id.area);
         language = (EditText) findViewById(R.id.language);
         feedbackEditTextBox = (EditText) findViewById(R.id.feedbackEditTextBox);
@@ -74,11 +112,10 @@ public class CaptureContactDialog extends Dialog
             @Override
             public void onClick(View view)
             {
-
                 DevoteeCreateRequest devoteeCreateRequest = new DevoteeCreateRequest();
                 devoteeCreateRequest.setLegalName(name.getText().toString());
                 devoteeCreateRequest.setArea(area.getText().toString());
-                devoteeCreateRequest.setGender(gender.getText().toString());
+                devoteeCreateRequest.setGender(genderChosen);
                 devoteeCreateRequest.setSmsPhone(mobile.getText().toString());
                 devoteeCreateRequest.setCapturedBy(capturedBy);
                 devoteeCreateRequest.setPreferredLanguage(language.getText().toString());
@@ -127,37 +164,115 @@ public class CaptureContactDialog extends Dialog
         Window window = getWindow();
         window.setGravity(Gravity.CENTER);
         getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        manageTextWatchers();
     }
 
-    public void onResume()
+    private void manageTextWatchers()
     {
-
-        setOnKeyListener(new DialogInterface.OnKeyListener()
+        name.addTextChangedListener(new TextWatcher()
         {
             @Override
-            public boolean onKey(android.content.DialogInterface dialog, int keyCode,
-                                 android.view.KeyEvent event)
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
 
-                if ((keyCode == android.view.KeyEvent.KEYCODE_BACK))
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                if (editable.length() > 0)
                 {
-                    captureContactDialogCallback.setDialogDisplayStatus(false);
-                    dismiss();
-                    return true;
+                    nameEntered = true;
                 }
                 else
                 {
-                    return false; // pass on to be processed as normal
+                    nameEntered = false;
                 }
+                enableDisableSaveButton();
             }
         });
 
-    }
+        mobile.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                if (editable.length() == 10)
+                {
+                    mobileEntered = true;
+                }
+                else
+                {
+                    mobileEntered = false;
+                }
+                enableDisableSaveButton();
+            }
+        });
+
+        area.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                if (editable.length() >= 4)
+                {
+                    areaEntered = true;
+                }
+                else
+                {
+                    areaEntered = false;
+                }
+                enableDisableSaveButton();
+            }
+        });
+    }
 
     public interface CaptureContactDialogCallback
     {
         void setDialogDisplayStatus(boolean isShowing);
+    }
+
+    public void enableDisableSaveButton()
+    {
+        if (nameEntered && mobileEntered && genderSelected && areaEntered && languageEntered)
+        {
+            captureContact.setEnabled(true);
+        }
+        else
+        {
+            captureContact.setEnabled(false);
+        }
     }
 
 

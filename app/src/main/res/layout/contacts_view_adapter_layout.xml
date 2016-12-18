@@ -41,7 +41,7 @@
                 android:layout_gravity="center|start"
                 android:layout_weight="2"
                 android:ellipsize="end"
-                android:maxLength="13"
+                android:maxLength="10"
                 android:maxLines="1"
                 android:text="+917348807791"
                 android:textColor="@color/Anthracite_grey"
