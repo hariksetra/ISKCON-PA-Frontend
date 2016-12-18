@@ -20,6 +20,9 @@ public class DevoteeCreateRequest {
     private String incomeScale;
     private String smsPhone; //TODO: Create a separate table for phone numbers, which contains number, type of number eg:whatsapp or work, status eg: working or not working
     private Date introDate;
+    private String description;
+    private String preferredLanguage;
+    private String capturedBy;
     private String area; //TODO: create a table for area later
     private String address;
     private String email;
@@ -130,6 +133,30 @@ public class DevoteeCreateRequest {
 
     public void setIntroDate(Date introDate) {
         this.introDate = introDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPreferredLanguage() {
+        return preferredLanguage;
+    }
+
+    public void setPreferredLanguage(String preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
+    }
+
+    public String getCapturedBy() {
+        return capturedBy;
+    }
+
+    public void setCapturedBy(String capturedBy) {
+        this.capturedBy = capturedBy;
     }
 
     public String getArea() {

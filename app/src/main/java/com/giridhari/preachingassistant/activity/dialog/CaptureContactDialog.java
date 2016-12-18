@@ -38,14 +38,18 @@ public class CaptureContactDialog extends Dialog
     Button captureContact, fetchContact;
     private CaptureContactDialogCallback captureContactDialogCallback;
     String authToken;
+    String capturedBy;
     ProgressBar progressBar;
     PreachingAssistantService preachingAssistantService;
 
 
-    public CaptureContactDialog(Context context)
+    public CaptureContactDialog(Context context, PreachingAssistantService preachingAssistantService, String authToken, String devotee)
     {
         super(context);
         mContext = context;
+        this.preachingAssistantService = preachingAssistantService;
+        this.authToken = authToken;
+        this.capturedBy = devotee;
     }
 
     @Override
@@ -63,26 +67,24 @@ public class CaptureContactDialog extends Dialog
         language = (EditText) findViewById(R.id.language);
         feedbackEditTextBox = (EditText) findViewById(R.id.feedbackEditTextBox);
         captureContact = (Button) findViewById(R.id.captureContact);
-        //progressBar = (ProgressBar) findViewById(R.id.progressBarCaptureContact);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarInDialog);
 
         captureContact.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                //progressBar.setVisibility(View.VISIBLE);
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://52.77.165.53/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                preachingAssistantService = retrofit.create(PreachingAssistantService.class);
 
                 DevoteeCreateRequest devoteeCreateRequest = new DevoteeCreateRequest();
                 devoteeCreateRequest.setLegalName(name.getText().toString());
                 devoteeCreateRequest.setArea(area.getText().toString());
                 devoteeCreateRequest.setGender(gender.getText().toString());
                 devoteeCreateRequest.setSmsPhone(mobile.getText().toString());
+                devoteeCreateRequest.setCapturedBy(capturedBy);
+                devoteeCreateRequest.setPreferredLanguage(language.getText().toString());
+                devoteeCreateRequest.setDescription(feedbackEditTextBox.getText().toString());
+
+                progressBar.setVisibility(View.VISIBLE);
 
                 Log.d("Token = ", "Basic " + authToken);
                 preachingAssistantService.createDevotee("Basic " + authToken, "application/json", "application/json", devoteeCreateRequest).enqueue(new Callback<DevoteeDetailsResponse>()
@@ -95,13 +97,13 @@ public class CaptureContactDialog extends Dialog
                             Log.d("response", response.message());
                             Toast.makeText(mContext, "Capture Contact successful", Toast.LENGTH_SHORT).show();
                             Log.d("CaptureContactActivity", "Capture Contact Response = " + response);
-                            progressBar.setVisibility(View.INVISIBLE);
+                            dismiss();
                         }
                         else
                         {
-                            //progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(mContext, "Capture Contact Failed, please retry!!", Toast.LENGTH_SHORT).show();
                         }
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
@@ -120,7 +122,7 @@ public class CaptureContactDialog extends Dialog
         });
 
 
-        setCancelable(false);
+        setCancelable(true);
         setCanceledOnTouchOutside(false);
         Window window = getWindow();
         window.setGravity(Gravity.CENTER);

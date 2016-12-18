@@ -14,7 +14,7 @@ import com.giridhari.preachingassistant.activity.dialog.CaptureContactDialog;
 
 import java.util.ArrayList;
 
-public class MyContactsActivity extends AppCompatActivity
+public class MyContactsActivity extends APIActivity
 {
 
     @Override
@@ -87,7 +87,7 @@ public class MyContactsActivity extends AppCompatActivity
 
     private void showCaptureContactDialog()
     {
-        CaptureContactDialog captureContactDialog = new CaptureContactDialog(MyContactsActivity.this);
+        CaptureContactDialog captureContactDialog = new CaptureContactDialog(MyContactsActivity.this, preachingAssistantService, getStringFromSharedPreference(LoginActivity.AUTH_TOKEN));
         captureContactDialog.show();
     }
 }

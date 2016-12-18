@@ -33,7 +33,7 @@ public class BaseActivity extends AppCompatActivity {
      * @param value The value
      */
     protected void saveToSharedPreferences(String key, String value) {
-        sharedPreferences.edit().putString(key, value);
+        sharedPreferences.edit().putString(key, value).apply();
     }
 
     /**
