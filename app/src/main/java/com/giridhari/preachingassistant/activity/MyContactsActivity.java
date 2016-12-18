@@ -1,7 +1,6 @@
 package com.giridhari.preachingassistant.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -87,7 +86,8 @@ public class MyContactsActivity extends APIActivity
 
     private void showCaptureContactDialog()
     {
-        CaptureContactDialog captureContactDialog = new CaptureContactDialog(MyContactsActivity.this, preachingAssistantService, getStringFromSharedPreference(LoginActivity.AUTH_TOKEN));
+        CaptureContactDialog captureContactDialog = new CaptureContactDialog(MyContactsActivity.this, preachingAssistantService,
+                getStringFromSharedPreferences(LoginActivity.AUTH_TOKEN), getStringFromSharedPreferences(LoginActivity.DEVOTEE_URL));
         captureContactDialog.show();
     }
 }

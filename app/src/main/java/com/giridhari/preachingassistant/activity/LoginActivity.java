@@ -33,6 +33,8 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
         CheckBox.OnCheckedChangeListener
 {
     public static final String AUTH_TOKEN = "authToken";
+    public static final String DEVOTEE_URL = "devoteeUrl";
+    public static final String USER_ACCOUNT_URL = "userAccountUrl";
 
     ProgressBar progressBar;
     String username;
@@ -48,6 +50,9 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        if(getStringFromSharedPreferences(AUTH_TOKEN) != null) {
+            ActivityManager.launchMyContactsActivity(LoginActivity.this);
+        }
         setContentView(R.layout.activity_login);
 
         assert findViewById(R.id.privacy_policy) != null;
@@ -112,6 +117,8 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
                     progressBar.setVisibility(View.INVISIBLE);
                     //ActivityManager.launchCaptureContact(LoginActivity.this,authToken);
                     saveToSharedPreferences(AUTH_TOKEN, authToken);
+                    saveToSharedPreferences(USER_ACCOUNT_URL, response.body().get_links().get("userAccount").get("href"));
+                    saveToSharedPreferences(DEVOTEE_URL, response.body().get_links().get("profile").get("href"));
                     ActivityManager.launchMyContactsActivity(LoginActivity.this);
                 }
                 else

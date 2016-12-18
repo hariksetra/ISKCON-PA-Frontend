@@ -28,7 +28,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Save something into the application SharedPreferences.
+     * Save a String into the application SharedPreferences.
      * @param key The key for retrieving the value
      * @param value The value
      */
@@ -37,12 +37,30 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
+     * Save an integer into the application SharedPreferences.
+     * @param key The key for retrieving the value
+     * @param value The value
+     */
+    protected void saveToSharedPreferences(String key, int value) {
+        sharedPreferences.edit().putInt(key, value).apply();
+    }
+
+    /**
      * Gets a saved String from the SharedPreferences
      * @param key
      * @return
      */
-    protected String getStringFromSharedPreference(String key) {
+    protected String getStringFromSharedPreferences(String key) {
         return sharedPreferences.getString(key, null);
+    }
+
+    /**
+     * Gets a saved integer from the SharedPreferences
+     * @param key
+     * @return
+     */
+    protected int getIntFromSharedPreferences(String key) {
+        return sharedPreferences.getInt(key, -1);
     }
 
 }

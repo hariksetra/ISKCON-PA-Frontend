@@ -10,7 +10,9 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by shyam on 18/9/16.
@@ -26,5 +28,8 @@ public interface PreachingAssistantService
 
     @POST("/devotees")
     public Call<DevoteeDetailsResponse> createDevotee(@Header(value = "Authorization") String authKey, @Header("Content-Type") String contentType, @Header("Accept") String accept, @Body DevoteeCreateRequest devoteeCreateRequest);
+
+    @GET
+    public Call<DevoteeListResponse> getCapturedDevotees(@Header(value = "Authorization") String authKey, @Url String url);
 
 }
