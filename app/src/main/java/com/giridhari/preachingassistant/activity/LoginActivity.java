@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.giridhari.preachingassistant.R;
+
 import com.giridhari.preachingassistant.components.NetworkDialog;
 import com.giridhari.preachingassistant.model.UserAccountDetailResponse;
 import com.giridhari.preachingassistant.utility.ActivityManager;
@@ -51,7 +51,8 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        if(getStringFromSharedPreferences(AUTH_TOKEN) != null) {
+        if (getStringFromSharedPreferences(AUTH_TOKEN) != null)
+        {
             ActivityManager.launchMyContactsActivity(LoginActivity.this);
         }
         setContentView(R.layout.activity_login);
@@ -75,7 +76,7 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(LoginActivity.this, "Coming soon!!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Coming soon!!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -85,7 +86,7 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(LoginActivity.this, "A product of ISKCON AECS Layout, reach us at 8880076000",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "A product of ISKCON AECS Layout, reach us at 8880076000", Toast.LENGTH_SHORT).show();
             }
         });
 
