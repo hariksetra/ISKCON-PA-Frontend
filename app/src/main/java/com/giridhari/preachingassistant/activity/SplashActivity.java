@@ -1,8 +1,10 @@
 package com.giridhari.preachingassistant.activity;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.SyncStateContract;
 import android.view.WindowManager;
 
 import com.giridhari.preachingassistant.R;
@@ -72,12 +74,6 @@ public class SplashActivity extends Activity
         {
             mType = 0;
         }
-
-     /*   //setting status for bootm sheet display. bad // FIXME: 10/2/2016
-        SharedPreferences sharedPref = getSharedPreferences("Preaching_Assistant_Prefs#", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean(Constants.KEY_BOTTOM_SHEET_STATUS, false);
-        editor.apply();*/
 
     }
 

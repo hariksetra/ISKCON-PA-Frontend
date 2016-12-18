@@ -1,10 +1,8 @@
 package com.giridhari.preachingassistant.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.giridhari.preachingassistant.R;
-import com.giridhari.preachingassistant.client.PreachingAssistantService;
 import com.giridhari.preachingassistant.model.DevoteeCreateRequest;
 import com.giridhari.preachingassistant.model.DevoteeDetailsResponse;
 import com.giridhari.preachingassistant.model.DevoteeListResponse;
@@ -22,16 +19,12 @@ import com.giridhari.preachingassistant.model.DevoteeListResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CaptureContactActivity extends AppCompatActivity
+public class CaptureContactActivity extends APIActivity
 {
 
     EditText name, area, mobile, gender;
     Button captureContact, fetchContact;
-    PreachingAssistantService preachingAssistantService;
-    String authToken;
     ProgressBar progressBar;
 
 
@@ -56,13 +49,8 @@ public class CaptureContactActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 progressBar.setVisibility(View.VISIBLE);
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://52.77.165.53/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
 
-                preachingAssistantService = retrofit.create(PreachingAssistantService.class);
-
+                String authToken = getStringFromSharedPreference(LoginActivity.AUTH_TOKEN);
                 preachingAssistantService.getDevoteeList("Basic " + authToken).enqueue(new Callback<DevoteeListResponse>()
                 {
                     @Override
@@ -100,13 +88,6 @@ public class CaptureContactActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                progressBar.setVisibility(View.VISIBLE);
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://52.77.165.53/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                preachingAssistantService = retrofit.create(PreachingAssistantService.class);
 
                 DevoteeCreateRequest devoteeCreateRequest = new DevoteeCreateRequest();
                 devoteeCreateRequest.setLegalName(name.getText().toString());
@@ -114,6 +95,7 @@ public class CaptureContactActivity extends AppCompatActivity
                 devoteeCreateRequest.setGender(gender.getText().toString());
                 devoteeCreateRequest.setSmsPhone(mobile.getText().toString());
 
+                String authToken = getStringFromSharedPreference(LoginActivity.AUTH_TOKEN);
                 Log.d("Token = ", "Basic " + authToken);
                 preachingAssistantService.createDevotee("Basic " + authToken, "application/json", "application/json", devoteeCreateRequest).enqueue(new Callback<DevoteeDetailsResponse>()
                 {
@@ -160,15 +142,6 @@ public class CaptureContactActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-    }
-
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        Intent myIntent = getIntent();
-        authToken = myIntent.getExtras().getString("authToken");
     }
 
 }

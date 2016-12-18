@@ -33,11 +33,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener,
+public class LoginActivity extends APIActivity implements View.OnClickListener,
         CheckBox.OnCheckedChangeListener
 {
+    public static final String AUTH_TOKEN = "authToken";
 
-    PreachingAssistantService preachingAssistantService;
     ProgressBar progressBar;
     String username;
     private TextView forgetBtn;
@@ -101,12 +101,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void doLogin(final String authToken, String username)
     {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://52.77.165.53/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        preachingAssistantService = retrofit.create(PreachingAssistantService.class);
         UserAccountDetailResponse userAccountDetailResponse = new UserAccountDetailResponse();
 
         Log.d("Token = ", "Basic " + authToken);
@@ -121,7 +115,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.d("LoginActivity", "Login Response = " + response);
                     progressBar.setVisibility(View.INVISIBLE);
                     //ActivityManager.launchCaptureContact(LoginActivity.this,authToken);
-                    ActivityManager.launchMyContactsActivity(LoginActivity.this, authToken);
+                    saveToSharedPreferences(AUTH_TOKEN, authToken);
+                    ActivityManager.launchMyContactsActivity(LoginActivity.this);
                 }
                 else
                 {

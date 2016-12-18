@@ -25,10 +25,9 @@ public class ActivityManager
                 R.anim.slide_end_left);
     }
 
-    public static void launchCaptureContact(Activity activity, String authToken)
+    public static void launchCaptureContact(Activity activity)
     {
         Intent intent = new Intent(activity, CaptureContactActivity.class);
-        intent.putExtra("authToken", authToken);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
         //animation for launching screen
@@ -36,10 +35,9 @@ public class ActivityManager
                 R.anim.slide_end_left);
     }
 
-    public static void launchMainActivity(Activity activity, String authToken)
+    public static void launchMainActivity(Activity activity)
     {
         Intent intent = new Intent(activity, MainActivity.class);
-        intent.putExtra("authToken", authToken);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
         //animation for launching screen
@@ -48,10 +46,9 @@ public class ActivityManager
     }
 
 
-    public static void launchMyContactsActivity(Activity activity, String authToken)
+    public static void launchMyContactsActivity(Activity activity)
     {
         Intent intent = new Intent(activity, MyContactsActivity.class);
-        intent.putExtra("authToken", authToken);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
         //animation for launching screen
