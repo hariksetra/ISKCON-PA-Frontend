@@ -30,6 +30,9 @@ public interface PreachingAssistantService
     public Call<DevoteeDetailsResponse> createDevotee(@Header(value = "Authorization") String authKey, @Header("Content-Type") String contentType, @Header("Accept") String accept, @Body DevoteeCreateRequest devoteeCreateRequest);
 
     @GET
+    public Call<DevoteeDetailsResponse> getDevoteeDetails(@Header(value = "Authorization") String authKey, @Url String url);
+
+    @GET
     public Call<DevoteeListResponse> getCapturedDevotees(@Header(value = "Authorization") String authKey, @Url String url);
 
 }

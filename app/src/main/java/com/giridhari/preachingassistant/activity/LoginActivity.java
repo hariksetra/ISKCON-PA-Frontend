@@ -116,7 +116,7 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
                     Log.d("LoginActivity", "Login Response = " + response);
                     progressBar.setVisibility(View.INVISIBLE);
                     //ActivityManager.launchCaptureContact(LoginActivity.this,authToken);
-                    saveToSharedPreferences(AUTH_TOKEN, authToken);
+                    saveToSharedPreferences(AUTH_TOKEN, "Basic " + authToken);
                     saveToSharedPreferences(USER_ACCOUNT_URL, response.body().get_links().get("userAccount").get("href"));
                     saveToSharedPreferences(DEVOTEE_URL, response.body().get_links().get("profile").get("href"));
                     ActivityManager.launchMyContactsActivity(LoginActivity.this);

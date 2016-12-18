@@ -1,5 +1,8 @@
 package com.giridhari.preachingassistant.model;
 
+import com.giridhari.preachingassistant.activity.adapters.ContactsViewModel;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -196,5 +199,10 @@ public class DevoteeDetailsResponse {
 
     public void set_links(Map<String, Map<String, String>> _links) {
         this._links = _links;
+    }
+
+    public ContactsViewModel toContactsViewModel() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return new ContactsViewModel(this.getLegalName(), this.getSmsPhone(), "18-12-2016");
     }
 }
