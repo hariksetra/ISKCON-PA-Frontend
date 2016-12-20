@@ -51,7 +51,7 @@ public class CaptureContactActivity extends APIActivity
                 progressBar.setVisibility(View.VISIBLE);
 
                 String authToken = getStringFromSharedPreferences(LoginActivity.AUTH_TOKEN);
-                preachingAssistantService.getDevoteeList("Basic " + authToken).enqueue(new Callback<DevoteeListResponse>()
+                preachingAssistantService.getDevoteeList(authToken).enqueue(new Callback<DevoteeListResponse>()
                 {
                     @Override
                     public void onResponse(Call<DevoteeListResponse> call, Response<DevoteeListResponse> response)
@@ -94,10 +94,11 @@ public class CaptureContactActivity extends APIActivity
                 devoteeCreateRequest.setArea(area.getText().toString());
                 devoteeCreateRequest.setGender(gender.getText().toString());
                 devoteeCreateRequest.setSmsPhone(mobile.getText().toString());
+                devoteeCreateRequest.setCapturedBy(getStringFromSharedPreferences(LoginActivity.DEVOTEE_URL));
 
                 String authToken = getStringFromSharedPreferences(LoginActivity.AUTH_TOKEN);
                 Log.d("Token = ", "Basic " + authToken);
-                preachingAssistantService.createDevotee("Basic " + authToken, "application/json", "application/json", devoteeCreateRequest).enqueue(new Callback<DevoteeDetailsResponse>()
+                preachingAssistantService.createDevotee(authToken, "application/json", "application/json", devoteeCreateRequest).enqueue(new Callback<DevoteeDetailsResponse>()
                 {
                     @Override
                     public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response)

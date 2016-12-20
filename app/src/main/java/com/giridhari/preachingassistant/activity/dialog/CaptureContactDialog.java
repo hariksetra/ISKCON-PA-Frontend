@@ -123,8 +123,8 @@ public class CaptureContactDialog extends Dialog
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                Log.d("Token = ", "Basic " + authToken);
-                preachingAssistantService.createDevotee("Basic " + authToken, "application/json", "application/json", devoteeCreateRequest).enqueue(new Callback<DevoteeDetailsResponse>()
+                Log.d("Token = ", authToken);
+                preachingAssistantService.createDevotee(authToken, "application/json", "application/json", devoteeCreateRequest).enqueue(new Callback<DevoteeDetailsResponse>()
                 {
                     @Override
                     public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response)
