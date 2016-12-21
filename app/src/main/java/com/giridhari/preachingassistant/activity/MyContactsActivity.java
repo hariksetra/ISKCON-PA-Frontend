@@ -20,6 +20,7 @@ import com.giridhari.preachingassistant.utility.ActivityManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,7 +82,10 @@ public class MyContactsActivity extends APIActivity
                     @Override
                     public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response) {
                         if(response.isSuccessful()) {
-                            getCapturedContacts(response.body().get_links().get("capturedDevotees").get("href"));
+                            Map<String, Map<String, String>> links = response.body().get_links();
+                            if(links != null && links.containsKey("capturedDevotees")) {
+                                getCapturedContacts(links.get("capturedDevotees").get("href"));
+                            }
                         }
                     }
 
@@ -98,6 +102,7 @@ public class MyContactsActivity extends APIActivity
                     @Override
                     public void onResponse(Call<DevoteeListResponse> call, Response<DevoteeListResponse> response) {
                         if(response.isSuccessful()) {
+                            MyContactsActivity.this.contacts.clear();
                             List<DevoteeDetailsResponse> capturedDevotees = response.body().get_embedded().get("devotees");
                             for (DevoteeDetailsResponse devotee : capturedDevotees) {
                                 MyContactsActivity.this.contacts.add(devotee.toContactsViewModel());
@@ -120,6 +125,12 @@ public class MyContactsActivity extends APIActivity
         CaptureContactDialog captureContactDialog = new CaptureContactDialog(MyContactsActivity.this, preachingAssistantService,
                 getStringFromSharedPreferences(LoginActivity.AUTH_TOKEN), getStringFromSharedPreferences(LoginActivity.DEVOTEE_URL));
         captureContactDialog.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getDevoteeDetails();
     }
 
     @Override
