@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.giridhari.preachingassistant.R;
 import com.giridhari.preachingassistant.components.NetworkDialog;
+import com.giridhari.preachingassistant.model.DevoteeDetailsResponse;
 import com.giridhari.preachingassistant.model.UserAccountDetailResponse;
 import com.giridhari.preachingassistant.utility.ActivityManager;
 import com.giridhari.preachingassistant.utility.HelperUtility;
@@ -138,7 +139,23 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
                     //ActivityManager.launchCaptureContact(LoginActivity.this,authToken);
                     saveToSharedPreferences(AUTH_TOKEN, "Basic " + authToken);
                     saveToSharedPreferences(USER_ACCOUNT_URL, response.body().get_links().get("userAccount").get("href"));
-                    saveToSharedPreferences(DEVOTEE_URL, response.body().get_links().get("profile").get("href"));
+                    preachingAssistantService.getDevoteeDetails(getStringFromSharedPreferences(AUTH_TOKEN), response.body().get_links().get("profile").get("href")).enqueue(
+                            new Callback<DevoteeDetailsResponse>() {
+                                @Override
+                                public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response) {
+                                    if(response.isSuccessful()) {
+                                        saveToSharedPreferences(DEVOTEE_URL, response.body().get_links().get("self").get("href"));
+                                    } else {
+//                                        Toast.makeText(this, "You don't have a profile yet. Please contact the admin.", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<DevoteeDetailsResponse> call, Throwable t) {
+
+                                }
+                            }
+                    );
                     ActivityManager.launchMyContactsActivity(LoginActivity.this);
                 }
                 else

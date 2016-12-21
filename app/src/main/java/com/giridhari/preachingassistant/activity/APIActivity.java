@@ -17,7 +17,7 @@ public class APIActivity extends BaseActivity
     {
         super();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://52.77.165.53")
+                .baseUrl("http://10.0.2.2:8080")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
