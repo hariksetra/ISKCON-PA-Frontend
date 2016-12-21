@@ -203,6 +203,10 @@ public class DevoteeDetailsResponse {
 
     public ContactsViewModel toContactsViewModel() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        return new ContactsViewModel(this.getLegalName(), this.getSmsPhone(), "18-12-2016");
+        String date = "";
+        if(this.getIntroDate() != null) {
+            date = simpleDateFormat.format(getIntroDate());
+        }
+        return new ContactsViewModel(this.getLegalName(), this.getSmsPhone(), date);
     }
 }
