@@ -1,30 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/content_capture_contact"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbars="vertical"
     >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/SE_Life_Green">
-
-        <TextView
-            android:id="@+id/dialogueTitleId"
-            style="@style/dialogueTitleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:paddingBottom="6dp"
-            android:paddingTop="6dp"
-            android:text="CAPTURE CONTACT"
-            android:textSize="16sp"/>
-
-    </RelativeLayout>
 
 
     <TextView
@@ -34,9 +15,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="80dp"
-        android:text="Name"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        android:layout_marginTop="60dp"
+        android:text="@string/name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/Anthracite_grey"/>
 
     <EditText
         android:id="@+id/userName"
@@ -48,17 +30,19 @@
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:ems="10"
         android:inputType="textPersonName|textCapWords"
+        android:maxLength="25"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
-    <TextView
+     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView2"
         android:layout_below="@+id/userName"
-        android:layout_marginTop="21dp"
-        android:text="Mobile"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/mobile"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/Anthracite_grey"/>
 
     <EditText
         android:id="@+id/mobileNumber"
@@ -78,9 +62,10 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView3"
         android:layout_below="@+id/mobileNumber"
-        android:layout_marginTop="18dp"
-        android:text="Gender"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/gender"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/Anthracite_grey"/>
 
 
     <Spinner
@@ -89,8 +74,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/genderLabel"
-        android:layout_alignBottom="@+id/genderLabel"
         android:layout_alignStart="@+id/mobileNumber"
+        android:layout_alignTop="@+id/genderLabel"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
     <TextView
@@ -99,9 +84,10 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/genderLabel"
         android:layout_below="@+id/genderValue"
-        android:layout_marginTop="24dp"
-        android:text="Area"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/area"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/Anthracite_grey"/>
 
     <EditText
         android:id="@+id/area"
@@ -120,9 +106,10 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/areaLabel"
         android:layout_below="@+id/area"
-        android:layout_marginTop="18dp"
-        android:text="Language"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/language"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/Anthracite_grey"/>
 
     <EditText
         android:id="@+id/language"
@@ -132,12 +119,23 @@
         android:layout_alignBottom="@+id/languageLabel"
         android:layout_alignStart="@+id/area"
         android:ems="10"
-        android:hint="Enter preferred language"
+        android:hint="@string/enter_preferred_language"
         android:inputType="textCapWords"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
-    <EditText
+    <TextView
+        android:id="@+id/commentsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/languageLabel"
+        android:layout_below="@+id/language"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/comments"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/Anthracite_grey"
+        android:textStyle="normal"/>
 
+    <EditText
         android:id="@+id/feedbackEditTextBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -147,9 +145,9 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/rounded_corner_edittextbox"
-        android:gravity="top|left"
+        android:gravity="top|start"
         android:inputType="textMultiLine"
-        android:lines="4"
+        android:lines="3"
         android:maxLength="1000"
         android:overScrollMode="always"
         android:padding="8dp"
@@ -158,34 +156,48 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textCursorDrawable="@null"/>
 
-    <Button
-        android:id="@+id/captureContact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/activity_horizontal_margin"
         android:layout_below="@+id/feedbackEditTextBox"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp"
-        android:layout_marginTop="18dp"
-        android:enabled="false"
-        android:text="Save"/>
+        android:layout_centerHorizontal="true">
+    </View>
 
-    <TextView
-        android:id="@+id/commentsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/languageLabel"
-        android:layout_below="@+id/language"
-        android:layout_marginTop="18dp"
-        android:text="Comments"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textStyle="normal"/>
 
     <ProgressBar
         android:id="@+id/progressBarInDialog"
-        style="?android:attr/progressBarStyle"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:theme="@style/CircularProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="invisible"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/SE_Life_Green">
+
+        <TextView
+            style="@style/dialogueTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="@string/capture_contact"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/captureContact"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/appbar_padding_top"
+            android:src="@drawable/done"/>
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

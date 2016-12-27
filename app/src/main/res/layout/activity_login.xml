@@ -2,7 +2,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
@@ -20,11 +19,11 @@
 
         <include
             android:id="@+id/schneiderLogoBrandingId"
-            layout="@layout/schneider_branding_app_page_header"/>
+            layout="@layout/app_page_header"/>
 
         <include
             android:id="@+id/schneiderBrandingId"
-            layout="@layout/schneider_branding_app_page_footer"/>
+            layout="@layout/app_page_footer"/>
 
 
         <LinearLayout
@@ -51,7 +50,7 @@
                 android:textColor="@color/Anthracite_grey"
                 android:textColorHint="@color/Medium_Grey"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/activity_horizontal_margin"/>
+                android:textSize="@dimen/activity_horizontal_margin_text"/>
 
             <TextView
                 android:id="@+id/emailFieldStatus"
@@ -85,7 +84,7 @@
                     android:textColor="@color/Anthracite_grey"
                     android:textColorHint="@color/Medium_Grey"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/activity_horizontal_margin"/>
+                    android:textSize="@dimen/activity_horizontal_margin_text"/>
 
 
                 <ImageView
@@ -93,9 +92,9 @@
                     android:id="@+id/passwordEye"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginTop="20dp"
                     android:src="@drawable/unmask_password"/>
 
@@ -116,7 +115,7 @@
                 android:id="@+id/rememberme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginTop="20dp"
                 android:buttonTint="@color/SE_Life_Green"
                 android:checked="false"
@@ -140,7 +139,7 @@
                 android:enabled="true"
                 android:text="@string/login"
                 android:textColor="@color/AppWhite"
-                android:textSize="@dimen/activity_horizontal_margin"/>
+                android:textSize="@dimen/activity_horizontal_margin_text"/>
 
            <!-- <Button
                 android:id="@+id/signupBtn"
@@ -159,7 +158,6 @@
                 android:id="@+id/forgetpassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
                 android:autoLink="web"
@@ -171,10 +169,10 @@
                 android:id="@+id/privacy_policy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
                 android:autoLink="web"
-                android:text="About"
+                android:text="@string/about"
                 android:textColor="@color/AppWhite"
                 android:textSize="14sp"/>
 

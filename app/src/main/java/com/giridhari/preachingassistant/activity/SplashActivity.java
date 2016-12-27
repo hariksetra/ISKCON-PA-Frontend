@@ -19,10 +19,9 @@ public class SplashActivity extends Activity
     private final int m_splashTime = 1500;
     private Activity act = null;
     private String TAG = "PreachingAssistant";
-    private NetworkDialog.networkDialogListener networkDialogListener = null;
     private int mType;
     private SplashTimer m_splashtimer;
-    NetworkDialog networkDialog;
+    private NetworkDialog networkDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,7 +35,7 @@ public class SplashActivity extends Activity
         this.act = this;
 
         // create new onclicklistener interface //
-        networkDialogListener = new NetworkDialog.networkDialogListener()
+        NetworkDialog.networkDialogListener networkDialogListener = new NetworkDialog.networkDialogListener()
         {
             @Override
             public void onButtonClick()
@@ -76,18 +75,11 @@ public class SplashActivity extends Activity
     }
 
     @Override
-    protected void onStart()
-    {
-        super.onStart();
-    }
-
-    @Override
     protected void onResume()
     {
         super.onResume();
         resumeTimer();
         s_splashFinish = false;
-        return;
     }
 
     @Override
@@ -98,20 +90,17 @@ public class SplashActivity extends Activity
         {
             pauseTimer();
         }
-        return;
     }
 
     private void pauseTimer()
     {
         m_splashtimer.cancel();
-        return;
     }
 
     private void resumeTimer()
     {
         m_splashtimer = new SplashTimer(s_timerCount, 100);
         m_splashtimer.start();
-        return;
     }
 
     private class SplashTimer extends CountDownTimer
@@ -132,7 +121,6 @@ public class SplashActivity extends Activity
                 finish();
                 ActivityManager.launchLogin(act);
             }
-            return;
 
         }
 
@@ -140,7 +128,6 @@ public class SplashActivity extends Activity
         public void onTick(long millisUntilFinished)
         {
             s_timerCount -= 50;
-            return;
         }
     }
 }

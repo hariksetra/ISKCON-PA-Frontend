@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIActivity extends BaseActivity
 {
 
-    protected PreachingAssistantService preachingAssistantService;
+    final PreachingAssistantService preachingAssistantService;
 
     protected APIActivity()
     {

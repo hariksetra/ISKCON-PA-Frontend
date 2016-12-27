@@ -10,6 +10,7 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:autoCompleteTextViewStyle">@style/cursorColor</item>
         <item name="actionBarTheme">@style/AppTheme.ActionBarTheme</item>
+
     </style>
 
     <style name="AppTheme.ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -61,6 +62,5 @@
         <item name="colorControlActivated">@color/SE_Life_Green</item>
         <item name="buttonTint">@color/AppWhite</item>
     </style>
-
 
 </resources>

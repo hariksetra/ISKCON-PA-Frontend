@@ -10,7 +10,6 @@
         android:background="@color/SE_Life_Green">
 
         <TextView
-            android:id="@+id/dialogueTitleId"
             style="@style/dialogueTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +27,7 @@
             android:id="@+id/infoImageId"
             android:layout_width="@dimen/dialog_notification_image_WXH"
             android:layout_height="@dimen/dialog_notification_image_WXH"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:src="@drawable/pattern1"
             android:visibility="visible"/>
 

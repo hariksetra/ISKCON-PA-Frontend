@@ -6,9 +6,9 @@ package com.giridhari.preachingassistant.activity.adapters;
 
 public class ContactsViewModel
 {
-    public String name;
-    public String phoneNo;
-    public String dateWhenUserWasAdded;
+    public final String name;
+    public final String phoneNo;
+    public final String dateWhenUserWasAdded;
 
 
     public ContactsViewModel(String name, String phoneNo, String dateWhenUserWasAdded)

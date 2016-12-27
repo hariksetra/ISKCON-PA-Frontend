@@ -11,12 +11,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.giridhari.preachingassistant.R;
@@ -36,19 +35,24 @@ public class CaptureContactDialog extends Dialog
 {
 
     private final Context mContext;
-    EditText name, area, mobile, gender, language, feedbackEditTextBox;
-    Button captureContact, fetchContact;
+    private EditText name;
+    private EditText area;
+    private EditText mobile;
+    private EditText gender;
+    private EditText language;
+    private EditText feedbackEditTextBox;
+    private ImageView captureContact;
     private CaptureContactDialogCallback captureContactDialogCallback;
-    String authToken;
-    String capturedBy;
-    ProgressBar progressBar;
-    PreachingAssistantService preachingAssistantService;
-    boolean genderSelected = false;
-    boolean nameEntered = false;
-    boolean mobileEntered = false;
-    boolean areaEntered = false;
-    boolean languageEntered = true;
-    String genderChosen = "";
+    private final String authToken;
+    private final String capturedBy;
+    private ProgressBar progressBar;
+    private final PreachingAssistantService preachingAssistantService;
+    private boolean genderSelected = false;
+    private boolean nameEntered = false;
+    private boolean mobileEntered = false;
+    private boolean areaEntered = false;
+    private final boolean languageEntered = true;
+    private String genderChosen = "";
 
 
     public CaptureContactDialog(Context context, PreachingAssistantService preachingAssistantService, String authToken, String devotee)
@@ -66,8 +70,6 @@ public class CaptureContactDialog extends Dialog
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.capture_contact_dialog_layout);
-        TextView saveButton = (TextView) findViewById(R.id.captureContact);
-
         name = (EditText) findViewById(R.id.userName);
         mobile = (EditText) findViewById(R.id.mobileNumber);
 
@@ -104,7 +106,7 @@ public class CaptureContactDialog extends Dialog
         area = (EditText) findViewById(R.id.area);
         language = (EditText) findViewById(R.id.language);
         feedbackEditTextBox = (EditText) findViewById(R.id.feedbackEditTextBox);
-        captureContact = (Button) findViewById(R.id.captureContact);
+        captureContact = (ImageView) findViewById(R.id.captureContact);
         progressBar = (ProgressBar) findViewById(R.id.progressBarInDialog);
 
         captureContact.setOnClickListener(new View.OnClickListener()
@@ -134,6 +136,7 @@ public class CaptureContactDialog extends Dialog
                             Log.d("response", response.message());
                             Toast.makeText(mContext, "Capture Contact successful", Toast.LENGTH_SHORT).show();
                             Log.d("CaptureContactActivity", "Capture Contact Response = " + response);
+                            captureContactDialogCallback.refreshContactsList();
                             dismiss();
                         }
                         else
@@ -162,8 +165,9 @@ public class CaptureContactDialog extends Dialog
         setCancelable(true);
         setCanceledOnTouchOutside(false);
         Window window = getWindow();
+        assert window != null;
         window.setGravity(Gravity.CENTER);
-        getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        window.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         manageTextWatchers();
     }
@@ -187,14 +191,7 @@ public class CaptureContactDialog extends Dialog
             @Override
             public void afterTextChanged(Editable editable)
             {
-                if (editable.length() > 0)
-                {
-                    nameEntered = true;
-                }
-                else
-                {
-                    nameEntered = false;
-                }
+                nameEntered = editable.length() > 0;
                 enableDisableSaveButton();
             }
         });
@@ -216,14 +213,7 @@ public class CaptureContactDialog extends Dialog
             @Override
             public void afterTextChanged(Editable editable)
             {
-                if (editable.length() == 10)
-                {
-                    mobileEntered = true;
-                }
-                else
-                {
-                    mobileEntered = false;
-                }
+                mobileEntered = editable.length() == 10;
                 enableDisableSaveButton();
             }
         });
@@ -245,14 +235,7 @@ public class CaptureContactDialog extends Dialog
             @Override
             public void afterTextChanged(Editable editable)
             {
-                if (editable.length() >= 4)
-                {
-                    areaEntered = true;
-                }
-                else
-                {
-                    areaEntered = false;
-                }
+                areaEntered = editable.length() >= 4;
                 enableDisableSaveButton();
             }
         });
@@ -260,19 +243,31 @@ public class CaptureContactDialog extends Dialog
 
     public interface CaptureContactDialogCallback
     {
-        void setDialogDisplayStatus(boolean isShowing);
+        void refreshContactsList();
     }
 
-    public void enableDisableSaveButton()
+    private void enableDisableSaveButton()
     {
         if (nameEntered && mobileEntered && genderSelected && areaEntered && languageEntered)
         {
             captureContact.setEnabled(true);
+            captureContact.setAlpha(1.0f);
         }
         else
         {
             captureContact.setEnabled(false);
+            captureContact.setAlpha(0.5f);
         }
+    }
+
+    public CaptureContactDialogCallback getCaptureContactDialogCallback()
+    {
+        return captureContactDialogCallback;
+    }
+
+    public void setCaptureContactDialogCallback(CaptureContactDialogCallback captureContactDialogCallback)
+    {
+        this.captureContactDialogCallback = captureContactDialogCallback;
     }
 
 

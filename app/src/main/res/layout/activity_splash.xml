@@ -11,6 +11,6 @@
     <!--    <include
             android:id="@+id/schneiderBrandingId"
 
-            layout="@layout/schneider_branding_app_page_footer" />-->
+            layout="@layout/app_page_footer" />-->
 
 </RelativeLayout>

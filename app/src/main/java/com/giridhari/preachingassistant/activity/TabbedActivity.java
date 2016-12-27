@@ -22,7 +22,7 @@ import com.giridhari.preachingassistant.activity.fragments.DashboardFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
+public class TabbedActivity extends AppCompatActivity
 {
 
     /**

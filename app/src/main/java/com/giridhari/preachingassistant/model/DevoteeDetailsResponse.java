@@ -33,7 +33,7 @@ public class DevoteeDetailsResponse {
     private String sikshaLevel; //TODO: create an enum for siksha level
     private Map<String, Map<String, String>> _links;
 
-    public String getLegalName() {
+    private String getLegalName() {
         return legalName;
     }
 
@@ -121,7 +121,7 @@ public class DevoteeDetailsResponse {
         this.incomeScale = incomeScale;
     }
 
-    public String getSmsPhone() {
+    private String getSmsPhone() {
         return smsPhone;
     }
 
@@ -129,7 +129,7 @@ public class DevoteeDetailsResponse {
         this.smsPhone = smsPhone;
     }
 
-    public Date getIntroDate() {
+    private Date getIntroDate() {
         return introDate;
     }
 

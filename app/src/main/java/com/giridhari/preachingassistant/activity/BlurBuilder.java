@@ -12,7 +12,7 @@ import android.view.View;
 /**
  * Created by SESA249880 on 10/30/2016.
  */
-public class BlurBuilder {
+class BlurBuilder {
     private static final float BITMAP_SCALE = 0.05f;
     private static final float BLUR_RADIUS = 12.5f;
 

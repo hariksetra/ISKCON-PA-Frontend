@@ -3,7 +3,8 @@ package com.giridhari.preachingassistant.model;
 /**
  * Created by shyam on 24/9/16.
  */
-public class UserAccountRequest {
+class UserAccountRequest
+{
 
     private Long id;
     private String username;
@@ -12,51 +13,63 @@ public class UserAccountRequest {
     private Long profileId;
     private Boolean enabled;
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username)
+    {
         this.username = username;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password)
+    {
         this.password = password;
     }
 
-    public String getType() {
+    public String getType()
+    {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(String type)
+    {
         this.type = type;
     }
 
-    public Long getProfileId() {
+    public Long getProfileId()
+    {
         return profileId;
     }
 
-    public void setProfileId(Long profileId) {
+    public void setProfileId(Long profileId)
+    {
         this.profileId = profileId;
     }
 
-    public Boolean getEnabled() {
+    public Boolean getEnabled()
+    {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(Boolean enabled)
+    {
         this.enabled = enabled;
     }
 }

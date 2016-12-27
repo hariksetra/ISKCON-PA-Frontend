@@ -1,6 +1,5 @@
 package com.giridhari.preachingassistant.utility;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -12,20 +11,6 @@ public class HelperUtility
 {
 
     private static final String TAG = "HelperUtility";
-
-    //Get device IMEI number
-    public static String getDeviceId(Context pContext, Activity act)
-    {
-        String lRetVal;
-        /*TelephonyManager lManager = (TelephonyManager) pContext.getSystemService(Context.TELEPHONY_SERVICE);
-        if (lManager != null) {
-            lRetVal = lManager.getDeviceId();
-            if (lRetVal == null) {
-                lRetVal = Settings.Secure.getString(pContext.getContentResolver(), Settings.Secure.ANDROID_ID);
-            }
-        }*/
-        return "3595480468389201"; //hard coded , since server contains no validation or processing for this field.
-    }
 
     // Check internet is available
     public static boolean hasNetworkConnection(Context pContext)
@@ -52,7 +37,25 @@ public class HelperUtility
                 }
             }
         }
-        return haveConnectedWifi || haveConnectedMobile;
+
+        boolean networkConnectivity = haveConnectedWifi || haveConnectedMobile;
+        boolean hasInternet = isOnline();
+
+        return networkConnectivity && hasInternet;
+    }
+
+    private static Boolean isOnline()
+    {
+        try
+        {
+            Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
+            int returnVal = p1.waitFor();
+            return (returnVal == 0);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

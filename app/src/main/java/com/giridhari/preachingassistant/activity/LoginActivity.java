@@ -17,7 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.giridhari.preachingassistant.R;
 import com.giridhari.preachingassistant.components.NetworkDialog;
 import com.giridhari.preachingassistant.model.DevoteeDetailsResponse;
@@ -36,13 +35,11 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
 {
     public static final String AUTH_TOKEN = "authToken";
     public static final String DEVOTEE_URL = "devoteeUrl";
-    public static final String USER_ACCOUNT_URL = "userAccountUrl";
+    private static final String USER_ACCOUNT_URL = "userAccountUrl";
 
-    ProgressBar progressBar;
-    String username;
+    private ProgressBar progressBar;
+    private String username;
     private TextView forgetBtn;
-    private TextView privacyPolicy;
-    private NetworkDialog.networkDialogListener networkDialogListener;
     private Button loginButton;
     private TextView usernameEntered;
     private EditText passwordField;
@@ -82,7 +79,7 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
             }
         });
 
-        privacyPolicy = (TextView) findViewById(R.id.privacy_policy);
+        TextView privacyPolicy = (TextView) findViewById(R.id.privacy_policy);
         privacyPolicy.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -94,7 +91,7 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
 
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
-        networkDialogListener = new NetworkDialog.networkDialogListener()
+        NetworkDialog.networkDialogListener networkDialogListener = new NetworkDialog.networkDialogListener()
         {
             @Override
             public void onButtonClick()
@@ -140,23 +137,30 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
                     saveToSharedPreferences(AUTH_TOKEN, "Basic " + authToken);
                     saveToSharedPreferences(USER_ACCOUNT_URL, response.body().get_links().get("userAccount").get("href"));
                     preachingAssistantService.getDevoteeDetails(getStringFromSharedPreferences(AUTH_TOKEN), response.body().get_links().get("profile").get("href")).enqueue(
-                            new Callback<DevoteeDetailsResponse>() {
+                            new Callback<DevoteeDetailsResponse>()
+                            {
                                 @Override
-                                public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response) {
-                                    if(response.isSuccessful()) {
+                                public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response)
+                                {
+                                    if (response.isSuccessful())
+                                    {
                                         saveToSharedPreferences(DEVOTEE_URL, response.body().get_links().get("self").get("href"));
-                                    } else {
+                                        ActivityManager.launchMyContactsActivity(LoginActivity.this);
+                                    }
+                                    else
+                                    {
 //                                        Toast.makeText(this, "You don't have a profile yet. Please contact the admin.", Toast.LENGTH_LONG).show();
                                     }
                                 }
 
                                 @Override
-                                public void onFailure(Call<DevoteeDetailsResponse> call, Throwable t) {
+                                public void onFailure(Call<DevoteeDetailsResponse> call, Throwable t)
+                                {
 
                                 }
                             }
                     );
-                    ActivityManager.launchMyContactsActivity(LoginActivity.this);
+
                 }
                 else
                 {

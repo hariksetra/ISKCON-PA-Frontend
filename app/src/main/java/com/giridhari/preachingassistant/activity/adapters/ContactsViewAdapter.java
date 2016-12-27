@@ -58,9 +58,9 @@ public class ContactsViewAdapter extends ArrayAdapter<ContactsViewModel>
         }
         // Populate the data from the data object via the viewHolder object
         // into the template view.
-        viewHolder.name.setText(user.name);
-        viewHolder.number.setText(user.phoneNo);
-        viewHolder.date.setText(user.dateWhenUserWasAdded);
+        viewHolder.name.setText(user != null ? user.name : null);
+        viewHolder.number.setText(user != null ? user.phoneNo : null);
+        viewHolder.date.setText(user != null ? user.dateWhenUserWasAdded : null);
         // Return the completed view to render on screen
         
         return convertView;

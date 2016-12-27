@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.giridhari.preachingassistant.R;
@@ -26,12 +27,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyContactsActivity extends APIActivity
+public class MyContactsActivity extends APIActivity implements CaptureContactDialog.CaptureContactDialogCallback
 {
 
     private ArrayList<ContactsViewModel> contacts;
     private ContactsViewAdapter contactsViewAdapter;
     private ListView listView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,14 +44,13 @@ public class MyContactsActivity extends APIActivity
         setSupportActionBar(toolbar);
 
         contacts = new ArrayList<>();
-
-        getDevoteeDetails();
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBarCaptureContact);
 
         // Create the adapter to convert the array to views
         contactsViewAdapter = new ContactsViewAdapter(this, contacts);
         // Attach the adapter to a ListView
         listView = (ListView) findViewById(R.id.contacts_view);
+        listView.setFastScrollEnabled(true);
 
         ImageView captureContact = (ImageView) findViewById(R.id.add_contact);
         captureContact.setOnClickListener(new View.OnClickListener()
@@ -74,47 +75,62 @@ public class MyContactsActivity extends APIActivity
 
     }
 
-    private void getDevoteeDetails() {
+    private void getDevoteeDetails()
+    {
+        progressBar.setVisibility(View.VISIBLE);
         preachingAssistantService.getDevoteeDetails(
                 getStringFromSharedPreferences(LoginActivity.AUTH_TOKEN),
                 getStringFromSharedPreferences(LoginActivity.DEVOTEE_URL))
-                .enqueue(new Callback<DevoteeDetailsResponse>() {
+                .enqueue(new Callback<DevoteeDetailsResponse>()
+                {
                     @Override
-                    public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response) {
-                        if(response.isSuccessful()) {
+                    public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response)
+                    {
+                        if (response.isSuccessful())
+                        {
                             Map<String, Map<String, String>> links = response.body().get_links();
-                            if(links != null && links.containsKey("capturedDevotees")) {
+                            if (links != null && links.containsKey("capturedDevotees"))
+                            {
                                 getCapturedContacts(links.get("capturedDevotees").get("href"));
                             }
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<DevoteeDetailsResponse> call, Throwable t) {
+                    public void onFailure(Call<DevoteeDetailsResponse> call, Throwable t)
+                    {
 
                     }
                 });
     }
 
-    private void getCapturedContacts(String url) {
+    private void getCapturedContacts(String url)
+    {
         preachingAssistantService.getCapturedDevotees(getStringFromSharedPreferences(LoginActivity.AUTH_TOKEN), url)
-                .enqueue(new Callback<DevoteeListResponse>() {
+                .enqueue(new Callback<DevoteeListResponse>()
+                {
                     @Override
-                    public void onResponse(Call<DevoteeListResponse> call, Response<DevoteeListResponse> response) {
-                        if(response.isSuccessful()) {
+                    public void onResponse(Call<DevoteeListResponse> call, Response<DevoteeListResponse> response)
+                    {
+                        if (response.isSuccessful())
+                        {
                             MyContactsActivity.this.contacts.clear();
                             List<DevoteeDetailsResponse> capturedDevotees = response.body().get_embedded().get("devotees");
-                            for (DevoteeDetailsResponse devotee : capturedDevotees) {
+                            for (DevoteeDetailsResponse devotee : capturedDevotees)
+                            {
                                 MyContactsActivity.this.contacts.add(devotee.toContactsViewModel());
                                 Log.d("MyContactsActivity", "test");
                             }
-
+                            progressBar.setVisibility(View.INVISIBLE);
+                            contactsViewAdapter = new ContactsViewAdapter(MyContactsActivity.this, contacts);
                             listView.setAdapter(contactsViewAdapter);
+                            contactsViewAdapter.notifyDataSetInvalidated();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<DevoteeListResponse> call, Throwable t) {
+                    public void onFailure(Call<DevoteeListResponse> call, Throwable t)
+                    {
 
                     }
                 });
@@ -124,13 +140,30 @@ public class MyContactsActivity extends APIActivity
     {
         CaptureContactDialog captureContactDialog = new CaptureContactDialog(MyContactsActivity.this, preachingAssistantService,
                 getStringFromSharedPreferences(LoginActivity.AUTH_TOKEN), getStringFromSharedPreferences(LoginActivity.DEVOTEE_URL));
+        captureContactDialog.setCaptureContactDialogCallback(MyContactsActivity.this);
         captureContactDialog.show();
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
-        getDevoteeDetails();
+        FetchLatestContacts();
+    }
+
+    private void FetchLatestContacts()
+    {
+        if (listView != null)
+        {
+            listView.postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    getDevoteeDetails();
+                }
+            }, 100);
+        }
     }
 
     @Override
@@ -152,12 +185,17 @@ public class MyContactsActivity extends APIActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout)
         {
-            //TODO : clear shared prefs
             finish();
             ActivityManager.logout(MyContactsActivity.this);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void refreshContactsList()
+    {
+        FetchLatestContacts();
     }
 }

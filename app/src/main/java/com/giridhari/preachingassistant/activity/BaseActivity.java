@@ -5,16 +5,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-
-import com.giridhari.preachingassistant.R;
 
 /**
  * Created by shyam on 24/9/16.
  */
 public class BaseActivity extends AppCompatActivity {
 
-    public static final String SHARED_PREF_NAME = "com.giridhari.preachingassistant.authdata";
+    private static final String SHARED_PREF_NAME = "com.giridhari.preachingassistant.authdata";
 
     /**
      * Shared preferences for the entire app.
@@ -32,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
      * @param key The key for retrieving the value
      * @param value The value
      */
-    protected void saveToSharedPreferences(String key, String value) {
+    void saveToSharedPreferences(String key, String value) {
         sharedPreferences.edit().putString(key, value).apply();
     }
 
@@ -50,7 +47,7 @@ public class BaseActivity extends AppCompatActivity {
      * @param key
      * @return
      */
-    protected String getStringFromSharedPreferences(String key) {
+    String getStringFromSharedPreferences(String key) {
         return sharedPreferences.getString(key, null);
     }
 

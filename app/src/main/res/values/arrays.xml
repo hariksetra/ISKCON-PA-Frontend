@@ -5,18 +5,4 @@
         <item>FEMALE</item>
     </string-array>
 
-    <string-array name="language_array">
-        <item>ENGLISH</item>
-        <item>HINDI</item>
-        <item>KANNADA</item>
-        <item>TAMIL</item>
-        <item>TELUGU</item>
-    </string-array>
-
-    <string-array name="area_array">
-        <item>MARTHAHALLI</item>
-        <item>HBR LAYOUT</item>
-        <item>INDIRA NAGAR</item>
-    </string-array>
-
 </resources>

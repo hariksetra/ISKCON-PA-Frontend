@@ -1,6 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin_text">16sp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dialog_notification_image_WXH">40dp</dimen>
@@ -11,7 +12,6 @@
     <dimen name="dialogueTitlePrimaryTextpaddingLeft">16dp</dimen>
     <dimen name="dialogueTitlePrimaryTextpaddingRight">16dp</dimen>
     <dimen name="dialogueTitlePrimaryTextSize">20sp</dimen>
-    <dimen name="dialogueTitlePrimaryTextlayout_marginTop">20dp</dimen>
     <dimen name="signup_header_logo_WXH">55dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
 </resources>
