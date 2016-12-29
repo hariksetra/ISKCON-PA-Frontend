@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -18,6 +19,7 @@ import com.giridhari.preachingassistant.activity.dialog.CaptureContactDialog;
 import com.giridhari.preachingassistant.model.DevoteeDetailsResponse;
 import com.giridhari.preachingassistant.model.DevoteeListResponse;
 import com.giridhari.preachingassistant.utility.ActivityManager;
+import com.giridhari.preachingassistant.utility.HelperUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
     private ContactsViewAdapter contactsViewAdapter;
     private ListView listView;
     private ProgressBar progressBar;
+    int screenHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,6 +53,9 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
         contactsViewAdapter = new ContactsViewAdapter(this, contacts);
         // Attach the adapter to a ListView
         listView = (ListView) findViewById(R.id.contacts_view);
+
+        adjustListViewHeight();
+
         listView.setFastScrollEnabled(true);
 
         ImageView captureContact = (ImageView) findViewById(R.id.add_contact);
@@ -73,6 +79,46 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
         });
 
 
+    }
+
+    private void adjustListViewHeight()
+    {
+        screenHeight = HelperUtility.getScreenHeight();
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        float density = getResources().getDisplayMetrics().density;
+        double reductionConstant = 0.65;
+        if (density == 0.75f)
+        {
+            // LDPI
+            reductionConstant = 0.6;
+        }
+        else if (density >= 1.0f && density < 1.5f)
+        {
+            // MDPI
+            reductionConstant = 0.65;
+        }
+        else if (density == 1.5f)
+        {
+            // HDPI
+        }
+        else if (density > 1.5f && density <= 2.0f)
+        {
+            // XHDPI
+            reductionConstant = 0.65;
+        }
+        else if (density > 2.0f && density <= 3.0f)
+        {
+            // XXHDPI
+            reductionConstant = 0.7;
+        }
+        else
+        {
+            // XXXHDPI
+            reductionConstant = 0.7;
+        }
+        params.height = (int) (reductionConstant * screenHeight);
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
     private void getDevoteeDetails()
@@ -198,4 +244,5 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
     {
         FetchLatestContacts();
     }
+
 }

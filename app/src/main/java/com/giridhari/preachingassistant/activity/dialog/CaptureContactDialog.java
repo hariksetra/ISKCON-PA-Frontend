@@ -22,6 +22,7 @@ import com.giridhari.preachingassistant.R;
 import com.giridhari.preachingassistant.client.PreachingAssistantService;
 import com.giridhari.preachingassistant.model.DevoteeCreateRequest;
 import com.giridhari.preachingassistant.model.DevoteeDetailsResponse;
+import com.giridhari.preachingassistant.utility.HelperUtility;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +36,10 @@ public class CaptureContactDialog extends Dialog
 {
 
     private final Context mContext;
+    private final String authToken;
+    private final String capturedBy;
+    private final PreachingAssistantService preachingAssistantService;
+    private final boolean languageEntered = true;
     private EditText name;
     private EditText area;
     private EditText mobile;
@@ -43,15 +48,11 @@ public class CaptureContactDialog extends Dialog
     private EditText feedbackEditTextBox;
     private ImageView captureContact;
     private CaptureContactDialogCallback captureContactDialogCallback;
-    private final String authToken;
-    private final String capturedBy;
     private ProgressBar progressBar;
-    private final PreachingAssistantService preachingAssistantService;
     private boolean genderSelected = false;
     private boolean nameEntered = false;
     private boolean mobileEntered = false;
     private boolean areaEntered = false;
-    private final boolean languageEntered = true;
     private String genderChosen = "";
 
 
@@ -77,7 +78,7 @@ public class CaptureContactDialog extends Dialog
         Spinner genderSpinner = (Spinner) findViewById(R.id.genderValue);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext,
-                R.array.gender_array, android.R.layout.simple_spinner_item);
+                R.array.gender_array, R.layout.custom_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -114,50 +115,57 @@ public class CaptureContactDialog extends Dialog
             @Override
             public void onClick(View view)
             {
-                DevoteeCreateRequest devoteeCreateRequest = new DevoteeCreateRequest();
-                devoteeCreateRequest.setLegalName(name.getText().toString());
-                devoteeCreateRequest.setArea(area.getText().toString());
-                devoteeCreateRequest.setGender(genderChosen);
-                devoteeCreateRequest.setSmsPhone(mobile.getText().toString());
-                devoteeCreateRequest.setCapturedBy(capturedBy);
-                devoteeCreateRequest.setPreferredLanguage(language.getText().toString());
-                devoteeCreateRequest.setDescription(feedbackEditTextBox.getText().toString());
-
-                progressBar.setVisibility(View.VISIBLE);
-
-                Log.d("Token = ", authToken);
-                preachingAssistantService.createDevotee(authToken, "application/json", "application/json", devoteeCreateRequest).enqueue(new Callback<DevoteeDetailsResponse>()
+                if (HelperUtility.hasNetworkConnection(mContext))
                 {
-                    @Override
-                    public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response)
-                    {
-                        if (response.isSuccessful())
-                        {
-                            Log.d("response", response.message());
-                            Toast.makeText(mContext, "Capture Contact successful", Toast.LENGTH_SHORT).show();
-                            Log.d("CaptureContactActivity", "Capture Contact Response = " + response);
-                            captureContactDialogCallback.refreshContactsList();
-                            dismiss();
-                        }
-                        else
-                        {
-                            Toast.makeText(mContext, "Capture Contact Failed, please retry!!", Toast.LENGTH_SHORT).show();
-                        }
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
+                    DevoteeCreateRequest devoteeCreateRequest = new DevoteeCreateRequest();
+                    devoteeCreateRequest.setLegalName(name.getText().toString());
+                    devoteeCreateRequest.setArea(area.getText().toString());
+                    devoteeCreateRequest.setGender(genderChosen);
+                    devoteeCreateRequest.setSmsPhone(mobile.getText().toString());
+                    devoteeCreateRequest.setCapturedBy(capturedBy);
+                    devoteeCreateRequest.setPreferredLanguage(language.getText().toString());
+                    devoteeCreateRequest.setDescription(feedbackEditTextBox.getText().toString());
 
-                    @Override
-                    public void onFailure(Call<DevoteeDetailsResponse> call, Throwable t)
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    Log.d("Token = ", authToken);
+                    preachingAssistantService.createDevotee(authToken, "application/json", "application/json", devoteeCreateRequest).enqueue(new Callback<DevoteeDetailsResponse>()
                     {
-                        t.printStackTrace();
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(mContext, "Capture Contact Failed, please retry!!", Toast.LENGTH_SHORT).show();
-                        name.setText("");
-                        area.setText("");
-                        mobile.setText("");
-                        gender.setText("");
-                    }
-                });
+                        @Override
+                        public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response)
+                        {
+                            if (response.isSuccessful())
+                            {
+                                Log.d("response", response.message());
+                                Toast.makeText(mContext, "Capture Contact successful", Toast.LENGTH_SHORT).show();
+                                Log.d("CaptureContactActivity", "Capture Contact Response = " + response);
+                                captureContactDialogCallback.refreshContactsList();
+                                dismiss();
+                            }
+                            else
+                            {
+                                Toast.makeText(mContext, "Capture Contact Failed, please retry!!", Toast.LENGTH_SHORT).show();
+                            }
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
+
+                        @Override
+                        public void onFailure(Call<DevoteeDetailsResponse> call, Throwable t)
+                        {
+                            t.printStackTrace();
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(mContext, "Capture Contact Failed, please retry!!", Toast.LENGTH_SHORT).show();
+                            name.setText("");
+                            area.setText("");
+                            mobile.setText("");
+                            gender.setText("");
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(mContext, R.string.check_internet, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -241,11 +249,6 @@ public class CaptureContactDialog extends Dialog
         });
     }
 
-    public interface CaptureContactDialogCallback
-    {
-        void refreshContactsList();
-    }
-
     private void enableDisableSaveButton()
     {
         if (nameEntered && mobileEntered && genderSelected && areaEntered && languageEntered)
@@ -268,6 +271,11 @@ public class CaptureContactDialog extends Dialog
     public void setCaptureContactDialogCallback(CaptureContactDialogCallback captureContactDialogCallback)
     {
         this.captureContactDialogCallback = captureContactDialogCallback;
+    }
+
+    public interface CaptureContactDialogCallback
+    {
+        void refreshContactsList();
     }
 
 

@@ -6,8 +6,8 @@ import android.content.Intent;
 import com.giridhari.preachingassistant.R;
 import com.giridhari.preachingassistant.activity.BaseActivity;
 import com.giridhari.preachingassistant.activity.LoginActivity;
-import com.giridhari.preachingassistant.activity.TabbedActivity;
 import com.giridhari.preachingassistant.activity.MyContactsActivity;
+import com.giridhari.preachingassistant.activity.TabbedActivity;
 
 /**
  * Created by SESA249880 on 10/29/2016.

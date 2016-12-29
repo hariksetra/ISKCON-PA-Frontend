@@ -1,6 +1,7 @@
 package com.giridhari.preachingassistant.utility;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -46,7 +47,7 @@ public class HelperUtility
 
     private static Boolean isOnline()
     {
-        try
+        /*try
         {
             Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
             int returnVal = p1.waitFor();
@@ -54,8 +55,17 @@ public class HelperUtility
         } catch (Exception e)
         {
             e.printStackTrace();
-        }
-        return false;
+        }*/
+        //TODO : check why this failing ain API 23 and below.
+        return true;
+    }
+
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
 }

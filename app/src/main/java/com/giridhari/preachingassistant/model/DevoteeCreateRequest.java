@@ -5,7 +5,8 @@ import java.util.Date;
 /**
  * Created by shyam on 29/10/16.
  */
-public class DevoteeCreateRequest {
+public class DevoteeCreateRequest
+{
 
     private String legalName;
     private String initiatedName;
@@ -31,187 +32,233 @@ public class DevoteeCreateRequest {
     private Integer monthlyContribution;
     private String sikshaLevel; //TODO: create an enum for siksha level
 
-    public String getLegalName() {
+    public String getLegalName()
+    {
         return legalName;
     }
 
-    public void setLegalName(String legalName) {
+    public void setLegalName(String legalName)
+    {
         this.legalName = legalName;
     }
 
-    public String getInitiatedName() {
+    public String getInitiatedName()
+    {
         return initiatedName;
     }
 
-    public void setInitiatedName(String initiatedName) {
+    public void setInitiatedName(String initiatedName)
+    {
         this.initiatedName = initiatedName;
     }
 
-    public Date getDob() {
+    public Date getDob()
+    {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(Date dob)
+    {
         this.dob = dob;
     }
 
-    public String getGender() {
+    public String getGender()
+    {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(String gender)
+    {
         this.gender = gender;
     }
 
-    public String getMaritalStatus() {
+    public String getMaritalStatus()
+    {
         return maritalStatus;
     }
 
-    public void setMaritalStatus(String maritalStatus) {
+    public void setMaritalStatus(String maritalStatus)
+    {
         this.maritalStatus = maritalStatus;
     }
 
-    public String getFamilyInfo() {
+    public String getFamilyInfo()
+    {
         return familyInfo;
     }
 
-    public void setFamilyInfo(String familyInfo) {
+    public void setFamilyInfo(String familyInfo)
+    {
         this.familyInfo = familyInfo;
     }
 
-    public String getEducation() {
+    public String getEducation()
+    {
         return education;
     }
 
-    public void setEducation(String education) {
+    public void setEducation(String education)
+    {
         this.education = education;
     }
 
-    public String getOccupation() {
+    public String getOccupation()
+    {
         return occupation;
     }
 
-    public void setOccupation(String occupation) {
+    public void setOccupation(String occupation)
+    {
         this.occupation = occupation;
     }
 
-    public String getOrganization() {
+    public String getOrganization()
+    {
         return organization;
     }
 
-    public void setOrganization(String organization) {
+    public void setOrganization(String organization)
+    {
         this.organization = organization;
     }
 
-    public String getDesignation() {
+    public String getDesignation()
+    {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+    public void setDesignation(String designation)
+    {
         this.designation = designation;
     }
 
-    public String getIncomeScale() {
+    public String getIncomeScale()
+    {
         return incomeScale;
     }
 
-    public void setIncomeScale(String incomeScale) {
+    public void setIncomeScale(String incomeScale)
+    {
         this.incomeScale = incomeScale;
     }
 
-    public String getSmsPhone() {
+    public String getSmsPhone()
+    {
         return smsPhone;
     }
 
-    public void setSmsPhone(String smsPhone) {
+    public void setSmsPhone(String smsPhone)
+    {
         this.smsPhone = smsPhone;
     }
 
-    public Date getIntroDate() {
+    public Date getIntroDate()
+    {
         return introDate;
     }
 
-    public void setIntroDate(Date introDate) {
+    public void setIntroDate(Date introDate)
+    {
         this.introDate = introDate;
     }
 
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
     }
 
-    public String getPreferredLanguage() {
+    public String getPreferredLanguage()
+    {
         return preferredLanguage;
     }
 
-    public void setPreferredLanguage(String preferredLanguage) {
+    public void setPreferredLanguage(String preferredLanguage)
+    {
         this.preferredLanguage = preferredLanguage;
     }
 
-    public String getCapturedBy() {
+    public String getCapturedBy()
+    {
         return capturedBy;
     }
 
-    public void setCapturedBy(String capturedBy) {
+    public void setCapturedBy(String capturedBy)
+    {
         this.capturedBy = capturedBy;
     }
 
-    public String getArea() {
+    public String getArea()
+    {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(String area)
+    {
         this.area = area;
     }
 
-    public String getAddress() {
+    public String getAddress()
+    {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(String address)
+    {
         this.address = address;
     }
 
-    public String getEmail() {
+    public String getEmail()
+    {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email)
+    {
         this.email = email;
     }
 
-    public String getCapturedFor() {
+    public String getCapturedFor()
+    {
         return capturedFor;
     }
 
-    public void setCapturedFor(String capturedFor) {
+    public void setCapturedFor(String capturedFor)
+    {
         this.capturedFor = capturedFor;
     }
 
-    public String getBooksRead() {
+    public String getBooksRead()
+    {
         return booksRead;
     }
 
-    public void setBooksRead(String booksRead) {
+    public void setBooksRead(String booksRead)
+    {
         this.booksRead = booksRead;
     }
 
-    public Integer getMonthlyContribution() {
+    public Integer getMonthlyContribution()
+    {
         return monthlyContribution;
     }
 
-    public void setMonthlyContribution(Integer monthlyContribution) {
+    public void setMonthlyContribution(Integer monthlyContribution)
+    {
         this.monthlyContribution = monthlyContribution;
     }
 
-    public String getSikshaLevel() {
+    public String getSikshaLevel()
+    {
         return sikshaLevel;
     }
 
-    public void setSikshaLevel(String sikshaLevel) {
+    public void setSikshaLevel(String sikshaLevel)
+    {
         this.sikshaLevel = sikshaLevel;
     }
 }

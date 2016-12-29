@@ -18,14 +18,6 @@ import java.util.ArrayList;
 
 public class ContactsViewAdapter extends ArrayAdapter<ContactsViewModel>
 {
-    // View lookup cache
-    private static class ViewHolder
-    {
-        TextView name;
-        TextView number;
-        TextView date;
-    }
-
     public ContactsViewAdapter(Context context, ArrayList<ContactsViewModel> users)
     {
         super(context, R.layout.contacts_view_adapter_layout, users);
@@ -62,8 +54,16 @@ public class ContactsViewAdapter extends ArrayAdapter<ContactsViewModel>
         viewHolder.number.setText(user != null ? user.phoneNo : null);
         viewHolder.date.setText(user != null ? user.dateWhenUserWasAdded : null);
         // Return the completed view to render on screen
-        
+
         return convertView;
+    }
+
+    // View lookup cache
+    private static class ViewHolder
+    {
+        TextView name;
+        TextView number;
+        TextView date;
     }
 }
 

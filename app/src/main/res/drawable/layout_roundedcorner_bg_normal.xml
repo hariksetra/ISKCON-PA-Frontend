@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/SE_Life_Green"/>
+    <solid android:color="@color/Life_Brown"/>
     <stroke
         android:width="2px"
-        android:color="@color/Dark_Green"/>
+        android:color="@color/Dark_Life_Brown"/>
     <corners android:radius="5px"/>
     <padding
         android:bottom="2px"

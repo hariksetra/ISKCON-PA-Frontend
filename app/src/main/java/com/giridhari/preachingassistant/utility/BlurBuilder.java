@@ -1,4 +1,8 @@
-package com.giridhari.preachingassistant.activity;
+package com.giridhari.preachingassistant.utility;
+
+/**
+ * Created by SESA249880 on 12/29/2016.
+ */
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,10 +13,7 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.view.View;
 
-/**
- * Created by SESA249880 on 10/30/2016.
- */
-class BlurBuilder
+public class BlurBuilder
 {
     private static final float BITMAP_SCALE = 0.05f;
     private static final float BLUR_RADIUS = 12.5f;

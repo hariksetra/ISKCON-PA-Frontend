@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/SE_Life_Green">
+        android:background="@color/Life_Brown">
 
         <TextView
             style="@style/dialogueTitleText"

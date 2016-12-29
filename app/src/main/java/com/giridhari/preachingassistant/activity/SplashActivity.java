@@ -3,7 +3,6 @@ package com.giridhari.preachingassistant.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.WindowManager;
 
 import com.giridhari.preachingassistant.R;
 import com.giridhari.preachingassistant.components.NetworkDialog;
@@ -14,11 +13,8 @@ public class SplashActivity extends Activity
 {
 
     private static int s_timerCount = 0;
-    protected static Boolean s_isTimerPaused = false;
     private static Boolean s_splashFinish = false;
-    private final int m_splashTime = 1500;
     private Activity act = null;
-    private String TAG = "PreachingAssistant";
     private int mType;
     private SplashTimer m_splashtimer;
     private NetworkDialog networkDialog;
@@ -31,6 +27,7 @@ public class SplashActivity extends Activity
 
         //Creating the timer class
         s_splashFinish = false;
+        int m_splashTime = 1500;
         s_timerCount = m_splashTime;
         this.act = this;
 
@@ -44,12 +41,10 @@ public class SplashActivity extends Activity
                 {
                     m_splashtimer.cancel();
                     finish();
-                    moveTaskToBack(true);
                 }
                 else
                 {
                     m_splashtimer.start();
-                    //Start the timer for the new class
                 }
             }
         };
@@ -62,10 +57,11 @@ public class SplashActivity extends Activity
             String secondaryString = getString(R.string.check_network);
             String button = getString(R.string.close);
             networkDialog = new NetworkDialog(this, networkDialogListener, primaryString, secondaryString, button, R.drawable.pattern1);
-            networkDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             networkDialog.setCanceledOnTouchOutside(false);
-            networkDialog.show();
-
+            if (!SplashActivity.this.isFinishing())
+            {
+                networkDialog.show();
+            }
         }
         else
         {
@@ -128,6 +124,16 @@ public class SplashActivity extends Activity
         public void onTick(long millisUntilFinished)
         {
             s_timerCount -= 50;
+        }
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        if (networkDialog != null && networkDialog.isShowing())
+        {
+            networkDialog.dismiss();
         }
     }
 }

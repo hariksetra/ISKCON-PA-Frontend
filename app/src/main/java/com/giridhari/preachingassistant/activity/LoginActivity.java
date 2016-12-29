@@ -110,11 +110,10 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         //Setting the blur bg
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.splashscreen_blur);
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.splashscreen);
         Bitmap blurredBitmap = BlurBuilder.blur(this.getApplicationContext(), originalBitmap);
         assert findViewById(R.id.landingScreenBg_id) != null;
         findViewById(R.id.landingScreenBg_id).setBackground(new BitmapDrawable(getResources(), blurredBitmap));
-
     }
 
 

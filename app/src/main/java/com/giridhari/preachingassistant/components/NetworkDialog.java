@@ -16,6 +16,7 @@ public class NetworkDialog extends Dialog
     private final String mPrimaryText;
     private final String mSecondaryText;
     private final String mButton;
+    private final networkDialogListener myListener;
     private int mImageDrwable = 0;
 
     public NetworkDialog(Context context, networkDialogListener myclick, String primaryText, String secondaryText, String button, int image)
@@ -26,14 +27,6 @@ public class NetworkDialog extends Dialog
         this.mSecondaryText = secondaryText;
         this.mButton = button;
         this.mImageDrwable = image;
-    }
-
-    private final networkDialogListener myListener;
-
-    // This is my interface //
-    public interface networkDialogListener
-    {
-        void onButtonClick();
     }
 
     @Override
@@ -72,5 +65,11 @@ public class NetworkDialog extends Dialog
 
             }
         });
+    }
+
+    // This is my interface //
+    public interface networkDialogListener
+    {
+        void onButtonClick();
     }
 }

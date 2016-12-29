@@ -59,7 +59,7 @@
         <item name="colorAccent">@color/AppWhite</item>
         <item name="colorControlNormal">@color/AppWhite</item>
         <item name="colorControlHighlight">@color/AppWhite</item>
-        <item name="colorControlActivated">@color/SE_Life_Green</item>
+        <item name="colorControlActivated">@color/Life_Brown</item>
         <item name="buttonTint">@color/AppWhite</item>
     </style>
 
