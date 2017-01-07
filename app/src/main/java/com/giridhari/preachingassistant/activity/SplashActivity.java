@@ -27,8 +27,7 @@ public class SplashActivity extends Activity
 
         //Creating the timer class
         s_splashFinish = false;
-        int m_splashTime = 1500;
-        s_timerCount = m_splashTime;
+        s_timerCount = 1500;
         this.act = this;
 
         // create new onclicklistener interface //

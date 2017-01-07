@@ -37,17 +37,6 @@ public class ActivityManager
     }
 
 
-    public static void launchMainActivity(Activity activity)
-    {
-        Intent intent = new Intent(activity, TabbedActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        activity.startActivity(intent);
-        //animation for launching screen
-        activity.overridePendingTransition(R.anim.slide_start_right,
-                R.anim.slide_end_left);
-    }
-
-
     public static void launchMyContactsActivity(Activity activity)
     {
         Intent intent = new Intent(activity, MyContactsActivity.class);

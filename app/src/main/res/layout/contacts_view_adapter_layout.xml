@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_weight="7"
             android:orientation="horizontal">
 
             <TextView
@@ -25,7 +25,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:ellipsize="end"
                 android:maxLength="25"
                 android:maxLines="1"
@@ -45,6 +45,13 @@
                 android:text="7348807791"
                 android:textColor="@color/Anthracite_grey"
                 android:textSize="15sp"/>
+
+            <ImageView
+                android:id="@+id/call"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/call"
+                android:layout_weight="1"/>
 
         </LinearLayout>
 

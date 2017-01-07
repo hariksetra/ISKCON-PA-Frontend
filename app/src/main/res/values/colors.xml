@@ -2,8 +2,6 @@
 <resources>
     <color name="AppTitleBarTitleTextColor">#ffffff</color>
     <color name="Anthracite_grey">#333333</color>
-    <color name="SE_Life_Green">#3DCD58</color>
-
     <color name="Super_Light_Grey">#E6E6E6</color>
     <color name="Ultra_Light_Grey_1">#EDEDED</color>
     <color name="AppWhite">#FFFFFFFF</color>

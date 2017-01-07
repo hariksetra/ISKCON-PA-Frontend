@@ -139,7 +139,7 @@ public class CaptureContactDialog extends Dialog
                                 Log.d("response", response.message());
                                 Toast.makeText(mContext, "Capture Contact successful", Toast.LENGTH_SHORT).show();
                                 Log.d("CaptureContactActivity", "Capture Contact Response = " + response);
-                                captureContactDialogCallback.refreshContactsList();
+                                captureContactDialogCallback.refreshContactsList(mobile.getText().toString());
                                 dismiss();
                             }
                             else
@@ -275,7 +275,7 @@ public class CaptureContactDialog extends Dialog
 
     public interface CaptureContactDialogCallback
     {
-        void refreshContactsList();
+        void refreshContactsList(String mobileNumberOfCapturedContact);
     }
 
 

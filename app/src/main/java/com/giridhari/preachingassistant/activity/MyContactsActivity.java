@@ -1,15 +1,24 @@
 package com.giridhari.preachingassistant.activity;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.giridhari.preachingassistant.R;
@@ -21,7 +30,11 @@ import com.giridhari.preachingassistant.model.DevoteeListResponse;
 import com.giridhari.preachingassistant.utility.ActivityManager;
 import com.giridhari.preachingassistant.utility.HelperUtility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +49,12 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
     private ContactsViewAdapter contactsViewAdapter;
     private ListView listView;
     private ProgressBar progressBar;
-    int screenHeight;
+    private int screenHeight;
+    private Intent callIntent;
+    private boolean showRationale = false;
+    private final int callRequestCode = 1;
+    private final int smsRequestCode = 2;
+    private String latestCapturedContactNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,13 +68,35 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
         progressBar = (ProgressBar) findViewById(R.id.progressBarCaptureContact);
 
         // Create the adapter to convert the array to views
+        sortContactsByDate();
         contactsViewAdapter = new ContactsViewAdapter(this, contacts);
         // Attach the adapter to a ListView
         listView = (ListView) findViewById(R.id.contacts_view);
 
         adjustListViewHeight();
-
         listView.setFastScrollEnabled(true);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                // selected item
+                String selectedContactNumber = ((TextView) view.findViewById(R.id.mobileNumber)).getText().toString();
+                //now call this number
+                callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + selectedContactNumber));
+                if (ActivityCompat.checkSelfPermission(MyContactsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(MyContactsActivity.this,
+                            new String[]{Manifest.permission.CALL_PHONE},
+                            callRequestCode);
+                }
+                else
+                {
+                    MyContactsActivity.this.startActivity(callIntent);
+                }
+            }
+        });
 
         ImageView captureContact = (ImageView) findViewById(R.id.add_contact);
         captureContact.setOnClickListener(new View.OnClickListener()
@@ -167,7 +207,10 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
                                 MyContactsActivity.this.contacts.add(devotee.toContactsViewModel());
                                 Log.d("MyContactsActivity", "test");
                             }
+
+                            sortContactsByDate();
                             progressBar.setVisibility(View.INVISIBLE);
+                            sortContactsByDate();
                             contactsViewAdapter = new ContactsViewAdapter(MyContactsActivity.this, contacts);
                             listView.setAdapter(contactsViewAdapter);
                             contactsViewAdapter.notifyDataSetInvalidated();
@@ -180,6 +223,14 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
 
                     }
                 });
+    }
+
+    private void sortContactsByDate()
+    {
+        if (contacts.size() >= 2)
+        {
+            Collections.sort(contacts, new CustomComparator());
+        }
     }
 
     private void showCaptureContactDialog()
@@ -240,9 +291,127 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
     }
 
     @Override
-    public void refreshContactsList()
+    public void refreshContactsList(String mobileNumberOfCapturedContact)
     {
         FetchLatestContacts();
+        this.latestCapturedContactNumber = mobileNumberOfCapturedContact;
+        if (ActivityCompat.checkSelfPermission(MyContactsActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(MyContactsActivity.this,
+                    new String[]{Manifest.permission.SEND_SMS},
+                    smsRequestCode);
+        }
+        else
+        {
+            SendSMSToCapturedContact(this.latestCapturedContactNumber);
+        }
+    }
+
+    private void SendSMSToCapturedContact(String mobileNumberOfCapturedContact)
+    {
+        try
+        {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(mobileNumberOfCapturedContact, null, getString(R.string.welcome_message), null, null);
+
+        } catch (Exception ex)
+        {
+            Toast.makeText(getApplicationContext(), ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == callRequestCode)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Log.d("PreachingAssistant", "Permission: " + permissions[0] + "was " + grantResults[0]);
+                if (callIntent != null)
+                {
+                    MyContactsActivity.this.startActivity(callIntent);
+                }
+            }
+            else
+            {
+                if (grantResults[0] == PackageManager.PERMISSION_DENIED)
+                {
+                    // user rejected the permission
+                    String permission = permissions[0];
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+                    {
+                        showRationale = shouldShowRequestPermissionRationale(permission);
+                    }
+                    if (!showRationale)
+                    {
+
+                    }
+                    else
+                    {
+                        Toast.makeText(MyContactsActivity.this, R.string.give_calling_permission, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
+        else if (requestCode == smsRequestCode)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Log.d("PreachingAssistant", "Permission: " + permissions[0] + "was " + grantResults[0]);
+                SendSMSToCapturedContact(this.latestCapturedContactNumber);
+            }
+            else
+            {
+                if (grantResults[0] == PackageManager.PERMISSION_DENIED)
+                {
+                    // user rejected the permission
+                    String permission = permissions[0];
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+                    {
+                        showRationale = shouldShowRequestPermissionRationale(permission);
+                    }
+                    if (!showRationale)
+                    {
+
+                    }
+                    else
+                    {
+                        Toast.makeText(MyContactsActivity.this, R.string.give_sms_permission, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
+    }
+
+    //sort by date added then by name.
+    private class CustomComparator implements Comparator<ContactsViewModel>
+    {
+
+        @Override
+        public int compare(ContactsViewModel o1, ContactsViewModel o2)
+        {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            try
+            {
+                int dateComparison = dateFormat.parse(o1.getDateWhenUserWasAdded()).compareTo(dateFormat.parse(o2.getDateWhenUserWasAdded()));
+                if (dateComparison == 0)
+                {
+                    return o1.getName().compareTo(o2.getName());
+                }
+                else
+                {
+                    return dateComparison;
+                }
+            } catch (ParseException e)
+            {
+                e.printStackTrace();
+                return -1; //by default
+            }
+        }
     }
 
 }

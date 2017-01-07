@@ -17,5 +17,19 @@ public class ContactsViewModel
         this.phoneNo = phoneNo;
         this.dateWhenUserWasAdded = dateWhenUserWasAdded;
     }
+    public String getPhoneNo()
+    {
+        return phoneNo;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getDateWhenUserWasAdded()
+    {
+        return dateWhenUserWasAdded;
+    }
 
 }
