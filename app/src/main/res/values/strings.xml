@@ -33,4 +33,7 @@
     <string name="give_sms_permission">Please give the app permission to send sms</string>
     <string name="give_calling_permission">Please give the app permission to make calls</string>
     <string name="welcome_message">Hare Krishna, Welcome to ISKCON AECS Layout. Happy to invite you for 4 session Gita Course @ ISKCON AECS opp EBlockGround, above AxissDentalClinic 8880076000</string>
+    <string name="sign_up">Sign up</string>
+    <string name="signup_link">https://docs.google.com/forms/d/e/1FAIpQLSf31w-W9xpClkMxzNWIPycKZ9oPKBAnzksp1gDTpFm236qSgQ/viewform</string>
+    <string name="share_link">Share Link</string>
 </resources>

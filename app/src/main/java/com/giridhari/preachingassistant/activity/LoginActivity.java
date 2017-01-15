@@ -1,10 +1,15 @@
 package com.giridhari.preachingassistant.activity;
 
+import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
@@ -22,6 +27,7 @@ import com.giridhari.preachingassistant.components.NetworkDialog;
 import com.giridhari.preachingassistant.model.DevoteeDetailsResponse;
 import com.giridhari.preachingassistant.model.UserAccountDetailResponse;
 import com.giridhari.preachingassistant.utility.ActivityManager;
+import com.giridhari.preachingassistant.utility.CustomTabActivityHelper;
 import com.giridhari.preachingassistant.utility.HelperUtility;
 
 import java.io.UnsupportedEncodingException;
@@ -41,6 +47,7 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
     private String username;
     private TextView forgetBtn;
     private Button loginButton;
+    private Button signUpButton;
     private TextView usernameEntered;
     private EditText passwordField;
     private TextView emailFieldError;
@@ -65,6 +72,10 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
         loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this);
         loginButton.setAlpha(1.0f);
+
+        signUpButton = (Button) findViewById(R.id.signupBtn);
+        signUpButton.setOnClickListener(this);
+
 
         assert findViewById(R.id.rememberme) != null;
         ((CheckBox) findViewById(R.id.rememberme)).setOnCheckedChangeListener(this);
@@ -240,8 +251,54 @@ public class LoginActivity extends APIActivity implements View.OnClickListener,
             case R.id.forgetpassword:
                 //ActivityManager.ForgetPasswordView(this);
                 break;
+
+            case R.id.signupBtn:
+                launchSignUpCustomChromeTab();
+
+                break;
         }
 
+    }
+
+    private void launchSignUpCustomChromeTab()
+    {
+        String url = getString(R.string.signup_link);
+
+        // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+
+        // set toolbar color
+        builder.setToolbarColor(ContextCompat.getColor(this, R.color.Life_Brown));
+
+        // add share action to menu list
+        builder.addDefaultShareMenuItem();
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_share);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, url);
+        int requestCode = 100;
+        PendingIntent pendingIntent = PendingIntent.getActivity(LoginActivity.this,
+                requestCode,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        // Map the bitmap, text, and pending intent to this icon
+        // Set tint to be true so it matches the toolbar color
+        builder.setActionButton(bitmap, getString(R.string.share_link), pendingIntent, true);
+
+        // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
+        CustomTabsIntent customTabsIntent = builder.build();
+        // and launch the desired Url with CustomTabsIntent.launchUrl()
+        //customTabsIntent.launchUrl(this, Uri.parse(url));
+        CustomTabActivityHelper.openCustomTab(this, customTabsIntent, Uri.parse(url),
+                new CustomTabActivityHelper.CustomTabFallback()
+                {
+                    @Override
+                    public void openUri(Activity activity, Uri uri)
+                    {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        activity.startActivity(intent);
+                    }
+                });
     }
 
     @Override
