@@ -3,7 +3,6 @@ package com.giridhari.preachingassistant.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -81,9 +80,11 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 // selected item
-                String selectedContactNumber = ((TextView) view.findViewById(R.id.mobileNumber)).getText().toString();
+                String selectedContactNumber = ((TextView) view.findViewById(R.id.mobileEditText)).getText().toString();
+                String selectedContactName = ((TextView) view.findViewById(R.id.contact)).getText().toString();
+                String selectedContactIntroDate = ((TextView) view.findViewById(R.id.dateWhenUserWasAdded)).getText().toString();
                 //now call this number
-                callIntent = new Intent(Intent.ACTION_CALL);
+                /*callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:" + selectedContactNumber));
                 if (ActivityCompat.checkSelfPermission(MyContactsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
                 {
@@ -94,7 +95,9 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
                 else
                 {
                     MyContactsActivity.this.startActivity(callIntent);
-                }
+                }*/
+
+                ActivityManager.launchDevoteeDetailViewActivity(MyContactsActivity.this,selectedContactName,selectedContactNumber,selectedContactIntroDate);
             }
         });
 

@@ -71,11 +71,11 @@ public class CaptureContactDialog extends Dialog
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.capture_contact_dialog_layout);
-        name = (EditText) findViewById(R.id.userName);
-        mobile = (EditText) findViewById(R.id.mobileNumber);
+        name = (EditText) findViewById(R.id.legalNameEditText);
+        mobile = (EditText) findViewById(R.id.mobileEditText);
 
 
-        Spinner genderSpinner = (Spinner) findViewById(R.id.genderValue);
+        Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext,
                 R.array.gender_array, R.layout.custom_spinner_item);
@@ -104,7 +104,7 @@ public class CaptureContactDialog extends Dialog
         });
 
 
-        area = (EditText) findViewById(R.id.area);
+        area = (EditText) findViewById(R.id.areaEditText);
         language = (EditText) findViewById(R.id.language);
         feedbackEditTextBox = (EditText) findViewById(R.id.feedbackEditTextBox);
         captureContact = (ImageView) findViewById(R.id.captureContact);

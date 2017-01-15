@@ -38,7 +38,7 @@ public class ContactsViewAdapter extends ArrayAdapter<ContactsViewModel>
             convertView = inflater.inflate(R.layout.contacts_view_adapter_layout, parent, false);
 
             viewHolder.name = (TextView) convertView.findViewById(R.id.contact);
-            viewHolder.number = (TextView) convertView.findViewById(R.id.mobileNumber);
+            viewHolder.number = (TextView) convertView.findViewById(R.id.mobileEditText);
             viewHolder.date = (TextView) convertView.findViewById(R.id.dateWhenUserWasAdded);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
