@@ -131,4 +131,6 @@
     <string name="date_of_birth">Date of Birth</string>
     <string name="designation">Designation</string>
     <string name="marital_status">Marital Status</string>
+    <string name="title_activity_pick_follow_up_mentor">PickFollowUpMentorActivity</string>
+    <string name="assign">Assign</string>
 </resources>

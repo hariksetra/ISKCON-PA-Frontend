@@ -4,6 +4,7 @@ import com.giridhari.preachingassistant.model.DevoteeCreateRequest;
 import com.giridhari.preachingassistant.model.DevoteeDetailsResponse;
 import com.giridhari.preachingassistant.model.DevoteeListResponse;
 import com.giridhari.preachingassistant.model.UserAccountDetailResponse;
+import com.giridhari.preachingassistant.model.UserAccountListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,6 +22,9 @@ public interface PreachingAssistantService
 
     @GET("/userAccounts/search/findByUsername")
     Call<UserAccountDetailResponse> getUserAccount(@Header(value = "Authorization") String authKey, @Query("username") String username);
+
+    @GET("/userAccounts")
+    Call<UserAccountListResponse> getUserAccounts(@Header(value = "Authorization") String authKey);
 
     @GET("/devotees")
     Call<DevoteeListResponse> getDevoteeList(@Header(value = "Authorization") String authKey);

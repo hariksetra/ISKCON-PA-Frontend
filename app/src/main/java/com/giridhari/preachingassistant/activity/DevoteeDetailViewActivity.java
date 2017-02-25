@@ -1,72 +1,79 @@
 package com.giridhari.preachingassistant.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.TextView;
 
 import com.giridhari.preachingassistant.R;
+import com.giridhari.preachingassistant.model.DevoteeDetailsResponse;
 
-public class DevoteeDetailViewActivity extends AppCompatActivity
-{
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    Toolbar toolbar;
-    String name, number, date;
+public class DevoteeDetailViewActivity extends APIActivity {
+
+    private String devoteeUrl;
+
+    private TextView legalNameTextView;
+    private TextView initiatedNameTextView;
+    private TextView phoneTextView;
+    private TextView introDateTextView;
+    private TextView genderTextView;
+    private TextView areaTextView;
+    private TextView dobTextView;
+    private TextView maritalStatusTextView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devotee_detail_view);
-        toolbar = (Toolbar) findViewById(R.id.toolbar_devotee_detail);
-        setSupportActionBar(toolbar);
 
-        Bundle bundle = getIntent().getExtras();
-        name = bundle.getString("name");
-        number = bundle.getString("number");
-        date = bundle.getString("date");
+        devoteeUrl = getIntent().getStringExtra("devoteeUrl");
 
+        init();
 
-        FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.call);
-        fab1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Snackbar.make(view, "Replace with your call action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.save);
-        fab2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Snackbar.make(view, "Replace with your save action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        finish();
-        overridePendingTransition(R.anim.slide_start_left, R.anim.slide_end_right);
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        if (toolbar != null)
-        {
-            toolbar.setTitle(name);
+        if(devoteeUrl != null) {
+            getDevoteeDetails();
         }
     }
+
+    private void init() {
+        this.legalNameTextView = (TextView) findViewById(R.id.legal_name);
+        this.initiatedNameTextView = (TextView) findViewById(R.id.initiated_name);
+        this.phoneTextView = (TextView) findViewById(R.id.phone);
+        this.introDateTextView = (TextView) findViewById(R.id.intro_date);
+        this.genderTextView = (TextView) findViewById(R.id.gender);
+        this.areaTextView = (TextView) findViewById(R.id.area);
+        this.dobTextView = (TextView) findViewById(R.id.dob);
+        this.maritalStatusTextView = (TextView) findViewById(R.id.marital_status);
+    }
+
+    private void getDevoteeDetails() {
+        preachingAssistantService.getDevoteeDetails(getStringFromSharedPreferences(LoginActivity.AUTH_TOKEN), devoteeUrl).enqueue(new Callback<DevoteeDetailsResponse>() {
+            @Override
+            public void onResponse(Call<DevoteeDetailsResponse> call, Response<DevoteeDetailsResponse> response) {
+                if(response != null && response.isSuccessful()) {
+                    DevoteeDetailsResponse devoteeDetailsResponse = response.body();
+                    updateView(devoteeDetailsResponse);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DevoteeDetailsResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void updateView(DevoteeDetailsResponse devoteeDetailsResponse) {
+        this.legalNameTextView.setText(devoteeDetailsResponse.getLegalName());
+        this.initiatedNameTextView.setText(devoteeDetailsResponse.getInitiatedName());
+        this.phoneTextView.setText(devoteeDetailsResponse.getSmsPhone());
+        this.introDateTextView.setText(devoteeDetailsResponse.getIntroDate().toString());
+        this.genderTextView.setText(devoteeDetailsResponse.getGender());
+        this.areaTextView.setText(devoteeDetailsResponse.getArea());
+        // this.dobTextView.setText(devoteeDetailsResponse.getDob().toString());
+        this.maritalStatusTextView.setText(devoteeDetailsResponse.getMaritalStatus());
+    }
+
 }

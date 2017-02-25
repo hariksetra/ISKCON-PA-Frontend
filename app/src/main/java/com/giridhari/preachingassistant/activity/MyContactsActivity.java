@@ -79,10 +79,6 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
         {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                // selected item
-                String selectedContactNumber = ((TextView) view.findViewById(R.id.mobileEditText)).getText().toString();
-                String selectedContactName = ((TextView) view.findViewById(R.id.contact)).getText().toString();
-                String selectedContactIntroDate = ((TextView) view.findViewById(R.id.dateWhenUserWasAdded)).getText().toString();
                 //now call this number
                 /*callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:" + selectedContactNumber));
@@ -97,7 +93,7 @@ public class MyContactsActivity extends APIActivity implements CaptureContactDia
                     MyContactsActivity.this.startActivity(callIntent);
                 }*/
 
-                ActivityManager.launchDevoteeDetailViewActivity(MyContactsActivity.this,selectedContactName,selectedContactNumber,selectedContactIntroDate);
+                ActivityManager.launchDevoteeDetailViewActivity(MyContactsActivity.this, contacts.get(position).getProfileUrl());
             }
         });
 

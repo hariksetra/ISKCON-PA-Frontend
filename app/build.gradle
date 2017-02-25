@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        release {
-            keyAlias 'android'
-            keyPassword 'Ajit@0657'
-            storeFile file('C:/Users/sesa249880/Documents/PreachingAssistant/app/src/main/keystore_file/my-release-key.keystore')
-            storePassword 'Ajit@0657'
-        }
-    }
+//    signingConfigs {
+//        release {
+//            keyAlias 'android'
+//            keyPassword 'Ajit@0657'
+//            storeFile file('C:/Users/sesa249880/Documents/PreachingAssistant/app/src/main/keystore_file/my-release-key.keystore')
+//            storePassword 'Ajit@0657'
+//        }
+//    }
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
@@ -18,7 +18,7 @@ android {
         versionCode 3
         versionName "1.0.2"
         multiDexEnabled = true
-        signingConfig signingConfigs.release
+//        signingConfig signingConfigs.release
     }
     buildTypes {
         release {

@@ -34,7 +34,7 @@ public class DevoteeDetailsResponse
     private String sikshaLevel; //TODO: create an enum for siksha level
     private Map<String, Map<String, String>> _links;
 
-    private String getLegalName()
+    public String getLegalName()
     {
         return legalName;
     }
@@ -144,7 +144,7 @@ public class DevoteeDetailsResponse
         this.incomeScale = incomeScale;
     }
 
-    private String getSmsPhone()
+    public String getSmsPhone()
     {
         return smsPhone;
     }
@@ -154,7 +154,7 @@ public class DevoteeDetailsResponse
         this.smsPhone = smsPhone;
     }
 
-    private Date getIntroDate()
+    public Date getIntroDate()
     {
         return introDate;
     }
@@ -252,6 +252,6 @@ public class DevoteeDetailsResponse
         {
             date = simpleDateFormat.format(getIntroDate());
         }
-        return new ContactsViewModel(this.getLegalName(), this.getSmsPhone(), date);
+        return new ContactsViewModel(this.getLegalName(), this.getSmsPhone(), date, this.get_links().get("self").get("href"));
     }
 }

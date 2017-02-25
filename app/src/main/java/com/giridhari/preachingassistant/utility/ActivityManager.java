@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.giridhari.preachingassistant.R;
 import com.giridhari.preachingassistant.activity.BaseActivity;
+import com.giridhari.preachingassistant.activity.DevoteeDetailEditActivity;
 import com.giridhari.preachingassistant.activity.DevoteeDetailViewActivity;
 import com.giridhari.preachingassistant.activity.LoginActivity;
 import com.giridhari.preachingassistant.activity.MyContactsActivity;
@@ -47,12 +48,10 @@ public class ActivityManager
                 R.anim.slide_end_left);
     }
 
-    public static void launchDevoteeDetailViewActivity(Activity activity, String selectedContactName, String selectedContactNumber, String selectedContactIntroDate)
+    public static void launchDevoteeDetailViewActivity(Activity activity, String profileUrl)
     {
         Intent intent = new Intent(activity, DevoteeDetailViewActivity.class);
-        intent.putExtra("name", selectedContactName);
-        intent.putExtra("number", selectedContactNumber);
-        intent.putExtra("date", selectedContactIntroDate);
+        intent.putExtra("devoteeUrl", profileUrl);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         activity.startActivity(intent);
         //animation for launching screen

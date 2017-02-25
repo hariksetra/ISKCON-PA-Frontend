@@ -6,16 +6,18 @@ package com.giridhari.preachingassistant.activity.adapters;
 
 public class ContactsViewModel
 {
-    public final String name;
-    public final String phoneNo;
-    public final String dateWhenUserWasAdded;
+    private final String name;
+    private final String phoneNo;
+    private final String dateWhenUserWasAdded;
+    private String profileUrl;
 
 
-    public ContactsViewModel(String name, String phoneNo, String dateWhenUserWasAdded)
+    public ContactsViewModel(String name, String phoneNo, String dateWhenUserWasAdded, String profileUrl)
     {
         this.name = name;
         this.phoneNo = phoneNo;
         this.dateWhenUserWasAdded = dateWhenUserWasAdded;
+        this.profileUrl = profileUrl;
     }
     public String getPhoneNo()
     {
@@ -32,4 +34,7 @@ public class ContactsViewModel
         return dateWhenUserWasAdded;
     }
 
+    public String getProfileUrl() {
+        return profileUrl;
+    }
 }
